@@ -1,5 +1,6 @@
-class QuizController < ApplicationController
+class QuestionController < ApplicationController
   def new
+
   end
 
   def create

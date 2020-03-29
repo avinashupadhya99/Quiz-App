@@ -1,4 +1,4 @@
-class QuizController < ApplicationController
+class OptionController < ApplicationController
   def new
   end
 
