@@ -1,4 +1,4 @@
-class OptionController < ApplicationController
+class OptionsController < ApplicationController
   def new
   end
 

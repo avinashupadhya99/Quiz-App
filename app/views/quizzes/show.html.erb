@@ -1,0 +1,19 @@
+<h1>Showing selected quiz</h1>
+
+<p>
+
+Name: <%= @quiz.name %>
+
+</p>
+
+<p>
+
+Score: <%= @quiz.score %>
+
+</p>
+
+<button class="add_ques_btn">Add question</button><br>
+
+<p class="add_ques_form">Works</p>
+
+<%= link_to 'New Quiz', quizzes_path %>

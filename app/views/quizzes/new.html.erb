@@ -1,0 +1,43 @@
+<h1>Create a Quiz</h1>
+
+<% if @quiz.errors.any? %>
+
+<h2>The following errors prevented the quiz from getting created</h2>
+
+	<ul>
+
+	<% @quiz.errors.full_messages.each do |msg| %>
+
+		<li><%= msg %></li>
+
+	<% end %>
+
+	</ul>
+
+<% end %>
+
+<%= form_for @quiz do |f| %>
+
+	<p>
+
+		<%= f.label :quiz_name %><br/>
+
+		<%= f.text_field :name %>
+
+	</p>
+
+	<p>
+
+		<%= f.label :score %><br/>
+
+		<%= f.number_field :score %>
+
+	</p>
+
+	<p>
+
+		<%= f.submit %>
+
+	</p>
+
+<% end %>
