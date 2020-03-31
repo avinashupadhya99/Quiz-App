@@ -21,6 +21,8 @@ class QuizzesController < ApplicationController
 
   def show
     @quiz = Quiz.find(params[:id])
+    @question = Question.new
+    @question_all = Question.where(quiz_id: params[:id].to_i)
   end
 
   def delete

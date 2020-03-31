@@ -1,0 +1,26 @@
+<%= form_for @question do |f| %>
+
+	<p>
+
+		<%= f.label :question %><br/>
+
+		<%= f.text_field :questions %>
+
+	</p>
+
+	<p>
+
+		<%= f.label :answer %><br/>
+
+		<%= f.text_field :answer %>
+
+	</p>
+	<%= f.hidden_field :quiz_id, value: @quiz.id %>
+
+	<p>
+
+		<%= f.submit %>
+
+	</p>
+
+<% end %>

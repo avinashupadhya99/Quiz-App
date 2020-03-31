@@ -4,6 +4,13 @@ class QuestionsController < ApplicationController
   end
 
   def create
+    @question = Question.new(question_params)
+    if @question.save
+      flash[:notice] = "Question was successfully created"
+      redirect_to controller: 'quizzes', action: 'show', id: params[:question][:quiz_id].to_i
+    else
+      redirect_to controller: 'quizzes', action: 'show', id: params[:question][:quiz_id].to_i
+    end
   end
 
   def edit
@@ -16,5 +23,13 @@ class QuestionsController < ApplicationController
   end
 
   def delete
+  end
+
+  private
+
+  def question_params
+
+    params.require(:question).permit(:questions, :answer, :quiz_id)
+
   end
 end
