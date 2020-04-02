@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20200330112526) do
+ActiveRecord::Schema.define(version: 20200402163424) do
 
   create_table "options", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
     t.string "opt_name"
@@ -22,11 +22,11 @@ ActiveRecord::Schema.define(version: 20200330112526) do
     t.string "questions"
     t.string "answer"
     t.bigint "quiz_id"
+    t.integer "score"
     t.index ["quiz_id"], name: "index_questions_on_quiz_id"
   end
 
   create_table "quizzes", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
-    t.integer "score"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "name"

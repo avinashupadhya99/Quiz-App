@@ -22,12 +22,6 @@ Name: <%= @quiz.name %>
 </p>
 
 <p>
-
-Score: <%= @quiz.score %>
-
-</p>
-
-<p>
 	<% if @question_all.present? %>
 		Questions in the quiz: <%= @quiz.name %><br>
 		_________________________________________________________________________
@@ -39,6 +33,10 @@ Score: <%= @quiz.score %>
 			<p>
 				Answer:
 				<%= each_question.answer %>
+			</p>
+			<p>
+				Score:
+				<%= each_question.score %>
 			</p>
 			__________________________________________________________________________
 		<% end %>
