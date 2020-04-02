@@ -1,25 +1,6 @@
-<h1>Showing selected quiz</h1>
+<h1>Showing <%= @quiz.name %></h1>
 
-<% if @question.errors.any? %>
-
-<h2>The following errors prevented the question from getting created</h2>
-
-<ul>
-
-<% @question.errors.full_messages.each do |msg| %>
-
-<li><%= msg %></li>
-
-<% end %>
-
-</ul>
-
-<% end %>
-<p>
-
-	Name: <%= @quiz.name %>
-
-</p>
+<%= render 'shared/question_errors' %>
 
 <p>
 	Number of questions: <%= @question_all.length() %>
@@ -29,28 +10,8 @@
 	Total Score : <%= @total_score %>
 </p>
 <!--Question List -->
-<p>
-	<% if @question_all.present? %>
-		Questions in the quiz: <%= @quiz.name %><br>
-		_________________________________________________________________________
-		<% @question_all.each do |each_question| %>
-			<p>
-				Question:
-				<%= each_question.questions %>
-			</p>
-			<p>
-				Answer:
-				<%= each_question.answer %>
-			</p>
-			<p>
-				Score:
-				<%= each_question.score %>
-			</p>
-			__________________________________________________________________________
-		<% end %>
-	<% end %>
-</p>
-<%# render 'question_list' %>
+
+<%= render 'question_list' %>
 <%# link_to 'Add question', "" %>
 <button id="add_ques_btn">Add question</button><br>
 <p id="add_ques_form">Works</p>

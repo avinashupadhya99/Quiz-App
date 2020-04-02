@@ -9,7 +9,7 @@ class QuizzesController < ApplicationController
   def create
     @quiz = Quiz.new(quiz_params)
     if @quiz.save
-      flash[:notice] = "Quiz was successfully created"
+      flash[:success] = "Quiz was successfully created"
       redirect_to quiz_path(@quiz)
     else
       render 'new'

@@ -6,7 +6,7 @@ class QuestionsController < ApplicationController
   def create
     @question = Question.new(question_params)
     if @question.save
-      flash[:notice] = "Question was successfully created"
+      flash[:success] = "Question was successfully created"
       redirect_to controller: 'quizzes', action: 'show', id: params[:question][:quiz_id].to_i
     else
       redirect_to controller: 'quizzes', action: 'show', id: params[:question][:quiz_id].to_i
