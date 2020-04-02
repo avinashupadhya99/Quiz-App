@@ -4,13 +4,17 @@
   <tr>
     <th>Name</th>
     <th>Score</th>
+    <th>Number of questions</th>
     <th colspan="3"></th>
   </tr>
   
   <% @quizzes.each do |quiz| %>
+    <% @question_all = Question.where(quiz_id: quiz.id) %>
+    <% @total_score = @question_all.sum(:score) %>
     <tr>
       <td><%= quiz.name %></td>
-      <td><%= quiz.score %></td>
+      <td><%= @total_score %></td>
+      <td><%= @question_all.length() %></td>
       <td><%= link_to 'Show', quiz_path(quiz) %></td>
       
     </tr>
