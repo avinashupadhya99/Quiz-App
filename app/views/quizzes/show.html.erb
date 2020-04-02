@@ -44,9 +44,9 @@ Score: <%= @quiz.score %>
 		<% end %>
 	<% end %>
 </p>
-
-<button class="add_ques_btn">Add question</button><br>
-<p class="add_ques_form">Works</p>
+<%# link_to 'Add question', "" %>
+<button id="add_ques_btn">Add question</button><br>
+<p id="add_ques_form">Works</p>
 <%= render "questions/form",
            :question => @question, :quiz_id => @quiz.id %>
 
