@@ -1,21 +1,37 @@
-<h1>Showing <%= @quiz.name %></h1>
+<h1 class="text-center mt-3 display-3 font-weight-bolder"><%= @quiz.name %></h1>
 
 <%= render 'shared/question_errors' %>
 
-<p>
-	Number of questions: <%= @question_all.length() %>
-</p>
+<div class="row mt-4 text-center">
+	<div class="col-md-5 offset-md-1 col-sm-5 offset-sm-1 col-5 offset-1 border border-primary alert alert-primary">
+		<h4>Number of questions</h4>
+		<span class="display-3"><%= @question_all.length() %></span>
+	</div>
+	<div class="col-md-5 col-sm-5 col-5 border border-left-0 border-primary alert alert-primary">
+		<h4>Total Score</h4>
+		<span class="display-3"><%= @total_score %></span>
+	</div>
+</div>
 
-<p>
-	Total Score : <%= @total_score %>
-</p>
 <!--Question List -->
-
-<%= render 'question_list' %>
+<div class="px-5">
+	<%= render 'question_list' %>
+</div>
 <%# link_to 'Add question', "" %>
-<button id="add_ques_btn">Add question</button><br>
-<p id="add_ques_form">Works</p>
-<%= render "questions/form",
+<!--<button id="add_ques_btn">Add question</button><br>
+<p id="add_ques_form">Works</p>-->
+<p>
+  <a class="btn btn-primary" data-toggle="collapse" href="#collapseAddQuestion" role="button" aria-expanded="false" aria-controls="collapseAddQuestion">
+    Add new question
+  </a>
+</p>
+<div class="collapse" id="collapseAddQuestion">
+  <div class="card card-body">
+    <%= render "questions/form",
            :question => @question, :quiz_id => @quiz.id %>
+  </div>
+</div>
+
+
 
 <%= link_to 'New Quiz', new_quiz_path %>
