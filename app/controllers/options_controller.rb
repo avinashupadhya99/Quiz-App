@@ -5,11 +5,12 @@ class OptionsController < ApplicationController
 
   def create
     @option = Option.new(option_params)
+    @question = Question.find(params[:option][:question_id].to_i)
     if @option.save
       flash[:success] = "Option was successfully created"
-      redirect_to controller: 'quizzes', action: 'show', id: params[:option][:question_id].to_i
+      redirect_to controller: 'quizzes', action: 'show', id: @question.quiz_id
     else
-      redirect_to controller: 'quizzes', action: 'show', id: params[:option][:question_id].to_i
+      redirect_to controller: 'quizzes', action: 'show', id: @question.quiz_id
     end
   end
 
