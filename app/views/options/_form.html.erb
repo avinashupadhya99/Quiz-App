@@ -1,0 +1,22 @@
+<%= render 'shared/question_errors' %>
+
+<% @ques_id = question_id %>
+<%= form_for @option do |f| %>
+
+	<p>
+
+		<%= f.label :option %><br/>
+
+		<%= f.text_field :opt_name %>
+
+	</p>
+
+	<%= f.hidden_field :question_id, value: @ques_id %>
+
+	<p>
+
+		<%= f.submit %>
+
+	</p>
+
+<% end %>

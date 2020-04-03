@@ -1,35 +1,39 @@
 <%= render 'shared/question_errors' %>
 
-<%= form_for @question do |f| %>
+<div class="row">
+	<div class="ml-3 col-md-10 col-sm-10 col-10">
+		<%= form_for @question do |f| %>
 
-	<p>
+			<div class="form-group">
 
-		<%= f.label :question %><br/>
+				<h5 class="font-weight-normal"><%= f.label :question %></h5>
 
-		<%= f.text_field :questions %>
+				<%= f.text_field :questions, class: "form-control", placeholder: "Enter the question" %>
 
-	</p>
+			</div>
 
-	<p>
+			<div class="form-group">
 
-		<%= f.label :answer %><br/>
+				<h5 class="font-weight-normal"><%= f.label :answer %></h5>
 
-		<%= f.text_field :answer %>
+				<%= f.text_field :answer, class: "form-control", placeholder: "Enter the answer" %>
 
-	</p>
-	<p>
+			</div>
+			<div class="form-group">
 
-		<%= f.label :score %><br/>
+				<h5 class="font-weight-normal"><%= f.label :score %></h5>
 
-		<%= f.text_field :score %>
+				<%= f.number_field :score, class: "form-control", placeholder: "Score" %>
 
-	</p>
-	<%= f.hidden_field :quiz_id, value: @quiz.id %>
+			</div>
+			<%= f.hidden_field :quiz_id, value: @quiz.id %>
 
-	<p>
+			<p>
 
-		<%= f.submit %>
+				<%= f.submit class: "btn btn-primary" %>
 
-	</p>
+			</p>
 
-<% end %>
+		<% end %>
+	</div>
+</div>

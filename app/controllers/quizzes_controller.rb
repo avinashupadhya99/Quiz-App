@@ -27,6 +27,7 @@ class QuizzesController < ApplicationController
     @question = Question.new
     @question_all = Question.where(quiz_id: params[:id].to_i)
     @total_score = Question.where(quiz_id: params[:id].to_i).sum(:score)
+    @option = Option.new
   end
 
   def delete

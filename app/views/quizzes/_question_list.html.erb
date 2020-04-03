@@ -19,6 +19,8 @@
 						Score:
 						<%= each_question.score %>
 					</p>
+					<%= render "options/form",
+           				:option => @option, :question_id => each_question.id %>
 				  </div>
 				</div>
 			<% end %>

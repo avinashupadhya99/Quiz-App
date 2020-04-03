@@ -17,21 +17,18 @@
 <div class="px-5">
 	<%= render 'question_list' %>
 </div>
-<%# link_to 'Add question', "" %>
-<!--<button id="add_ques_btn">Add question</button><br>
-<p id="add_ques_form">Works</p>-->
-<p>
-  <a class="btn btn-primary" data-toggle="collapse" href="#collapseAddQuestion" role="button" aria-expanded="false" aria-controls="collapseAddQuestion">
-    Add new question
-  </a>
-</p>
-<div class="collapse" id="collapseAddQuestion">
-  <div class="card card-body">
-    <%= render "questions/form",
-           :question => @question, :quiz_id => @quiz.id %>
-  </div>
+<div class="ml-5">
+	<p>
+	  <a class="btn btn-primary" data-toggle="collapse" href="#collapseAddQuestion" role="button" aria-expanded="false" aria-controls="collapseAddQuestion">
+	    Add new question
+	  </a>
+	</p>
+	<div class="collapse mx-5" id="collapseAddQuestion">
+	  <div class="card card-body">
+	    <%= render "questions/form",
+	           :question => @question %>
+	  </div>
+	</div>
+
+	<%= link_to 'New Quiz', new_quiz_path %>
 </div>
-
-
-
-<%= link_to 'New Quiz', new_quiz_path %>
