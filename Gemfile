@@ -30,6 +30,8 @@ gem 'coffee-script-source', '1.8.0'
 
 gem 'jquery-rails'
 
+gem 'active_model_serializers', '~> 0.10.0'
+
 # Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
 gem 'turbolinks', '~> 5'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
