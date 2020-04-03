@@ -11,14 +11,20 @@
 				</p>
 				<div class="collapse mb-2" id="collapseQuestion-<%="#{each_question.id}"%>">
 				  <div class="card card-body">
-				    <p>
-						Answer:
-						<%= each_question.answer %>
-					</p>
-					<p>
-						Score:
-						<%= each_question.score %>
-					</p>
+				  	<div class="row">
+				  		<div class="col-md-5 offset-md-1 col-sm-5 offset-sm-1 col-5 offset-1">
+				  			<h4>Answer:
+								<small><%= each_question.answer %></small>
+							</h4>
+				  		</div>
+				  		<div class="col-md-5 offset-md-1 col-sm-5 offset-sm-1 col-5 offset-1">
+				  			<h4>Score:
+								<small><%= each_question.score %></small>
+							</h4>
+				  		</div>
+				  	</div>
+				 	
+					<%= render 'option_list', :each_question => each_question %>
 					<%= render "options/form",
            				:option => @option, :question_id => each_question.id %>
 				  </div>

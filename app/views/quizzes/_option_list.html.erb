@@ -1,0 +1,23 @@
+<% if @option_all.present? %>
+	<div class="row">
+		<div class="col-md-10 offset-md-1 mt-3">
+			<h3>Options:</h3>
+		</div>
+	</div>
+	<div class="row ml-5 pl-5 mt-2">
+		<% @option_all.each do |each_option| %>
+			<% if each_option.question_id == each_question.id %>
+				<% if each_option.opt_name == each_question.answer %>
+					<% color='success' %>
+				<% else %>
+					<% color='primary' %>
+				<% end %>
+				<div class="col-md-5 my-1 text-center">
+						<h3>
+							<span class='badge badge-<%="#{color}"%>'><%= each_option.opt_name %></span>
+						</h3>
+				</div>
+			<% end %>
+		<% end %>
+	</div>
+<% end %>
