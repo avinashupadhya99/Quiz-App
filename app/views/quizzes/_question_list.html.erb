@@ -54,10 +54,24 @@
 							</h4>
 				  		</div>
 				  	</div>
-				 	
-					<%= render 'option_list', :each_question => each_question %>
-					<%= render "options/form",
-           				:option => @option, :question_id => each_question.id %>
+				  	<%= render 'option_list', :each_question => each_question %>
+
+				  	<div class="row">
+						<div class="col-md-10 offset-md-1 mt-3">
+							<hr>
+						 	<p>
+							  <a class="btn btn-info" data-toggle="collapse" href="#collapseOption" role="button" aria-expanded="false" aria-controls="collapseExample">
+							    Add an option
+							  </a>
+							</p>
+							<div class="collapse" id="collapseOption">
+							  <div class="card card-body">
+							    <%= render "options/form",
+		           					:option => @option, :question_id => each_question.id %>
+							  </div>
+							</div>
+						</div>
+					</div>
 				  </div>
 				</div>
 			<% end %>
