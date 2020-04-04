@@ -1,6 +1,7 @@
 
-
+@import "font-awesome";
 @import "bootstrap";
+
 
 footer {
 	color: #777;
@@ -16,4 +17,8 @@ footer ul {
 
 .grey-back {
 	background-color: #F5F5F5;
+}
+
+.alert-icon {
+	color: red;
 }

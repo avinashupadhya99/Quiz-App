@@ -5,13 +5,7 @@
 		<div class="list-group mt-1">
 			<% @question_all.each do |each_question| %>
 				<p>
-					<a class="btn btn-link list-group-item list-group-item-action" data-toggle="collapse" href="#collapseQuestion-<%="#{each_question.id}"%>" role="button" aria-expanded="false" aria-controls="collapseQuestion">
-				    	<%= each_question.questions %>
-				  	</a>
-				</p>
-				<div class="collapse mb-2" id="collapseQuestion-<%="#{each_question.id}"%>">
-				  <div class="card card-body">
-				  	<% found = false %>
+					<% found = false %>
 				  	<% count=0 %>
 			  		<% if @option_all.present? %>
 			  			<% @option_all.each do |each_option| %>
@@ -24,6 +18,17 @@
 							<% end %>
 						<% end %>
 					<% end %>
+					<a class="btn btn-link list-group-item list-group-item-action" data-toggle="collapse" href="#collapseQuestion-<%="#{each_question.id}"%>" role="button" aria-expanded="false" aria-controls="collapseQuestion">
+				    	<%= each_question.questions %>
+				    	<% if found == false || count<=1  %>
+					  	<span class="float-right alert-icon font-weight-bold pr-4">
+					  		<%= fa_icon "exclamation", class: "fa-2x" %>
+					  	</span>
+				  	<% end %>
+				  	</a>
+				</p>
+				<div class="collapse mb-2" id="collapseQuestion-<%="#{each_question.id}"%>">
+				  <div class="card card-body">
 					<% if found == false || count<=1  %>
 						<% error_messages=Array.new %>
 						<% if found == false %>
