@@ -55,7 +55,12 @@ class OptionsController < ApplicationController
   def show
   end
 
-  def delete
+  def destroy
+    @option = Option.find(params[:id])
+    @question = Question.find(@option.question_id)
+    @option.destroy
+    flash[:danger] = "Option was successfully deleted"
+    redirect_to controller: 'quizzes', action: 'show', id: @question.quiz_id
   end
 
   private
