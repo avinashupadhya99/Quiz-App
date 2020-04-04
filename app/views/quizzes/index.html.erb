@@ -13,11 +13,11 @@
       <% @question_all = Question.where(quiz_id: quiz.id) %>
       <% @total_score = @question_all.sum(:score) %>
       <%# link_to quiz_path(quiz) do %>
-        <tr onclick="window.location='<%= quiz_path(quiz) %>'" class="quiz-row">
-          <td><%= quiz.name %></td>
-          <td><%= @total_score %></td>
-          <td><%= @question_all.length() %></td>
-          <td><%= link_to 'Show', quiz_path(quiz) %></td>
+        <tr>
+          <td onclick="window.location='<%= quiz_path(quiz) %>'" class="quiz-row"><%= quiz.name %></td>
+          <td onclick="window.location='<%= quiz_path(quiz) %>'" class="quiz-row"><%= @total_score %></td>
+          <td onclick="window.location='<%= quiz_path(quiz) %>'" class="quiz-row"><%= @question_all.length() %></td>
+          <td><%= link_to 'Edit Quiz', edit_quiz_path(quiz), class: "btn btn-info btn-sm" %></td>
         </tr>
       <%# end %>
     <% end %>

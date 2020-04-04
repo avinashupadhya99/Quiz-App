@@ -17,9 +17,19 @@ class QuizzesController < ApplicationController
   end
 
   def edit
+    @quiz = Quiz.find(params[:id])
   end
 
   def update
+    @quiz = Quiz.find(params[:id])
+
+    if @quiz.update(quiz_params)
+      flash[:success] = "Quiz was successfully updated"
+      redirect_to quiz_path(@quiz)
+    else
+      render 'edit'
+    end
+
   end
 
   def show
