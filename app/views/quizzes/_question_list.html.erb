@@ -68,6 +68,9 @@
 							  <a class="btn btn-info" data-toggle="collapse" href="#collapseOption" role="button" aria-expanded="false" aria-controls="collapseExample">
 							    Add an option
 							  </a>
+							  <span class="float-right">
+							  	<%= link_to 'Delete Question', question_path(each_question), method: :delete, data: {confirm: "Are you sure?"}, class: "btn btn-danger" %>
+							  </span>
 							</p>
 							<div class="collapse" id="collapseOption">
 							  <div class="card card-body">

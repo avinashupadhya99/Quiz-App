@@ -22,7 +22,18 @@ class QuestionsController < ApplicationController
   def show
   end
 
-  def delete
+  def destroy
+    @question = Question.find(params[:id])
+    @quizID = @question.quiz_id
+    @option_all = Option.where(question_id: @question.id)
+    if @option_all.present?
+      @option_all.each do |each_option|
+        each_option.destroy
+      end
+    end
+    @question.destroy
+    flash[:danger] = "Question was successfully deleted"
+    redirect_to controller: 'quizzes', action: 'show', id: @quizID
   end
 
   private
