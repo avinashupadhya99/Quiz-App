@@ -15,7 +15,7 @@ class OptionsController < ApplicationController
       end
     end
     if @option.save
-      if @answer.present?
+      if @option.is_answer==true && @answer.present?
         @answer.is_answer=false
         @answer.save
       end
@@ -41,7 +41,7 @@ class OptionsController < ApplicationController
       end
     end
     if @each_option.update(option_params)
-      if @answer.present?
+      if @option.is_answer==true && @answer.present?
         @answer.is_answer=false
         @answer.save
       end
