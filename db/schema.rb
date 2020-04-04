@@ -10,17 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20200402163424) do
+ActiveRecord::Schema.define(version: 20200404055150) do
 
   create_table "options", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
     t.string "opt_name"
     t.bigint "question_id"
+    t.boolean "is_answer", default: false
     t.index ["question_id"], name: "index_options_on_question_id"
   end
 
   create_table "questions", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
     t.string "questions"
-    t.string "answer"
     t.bigint "quiz_id"
     t.integer "score"
     t.index ["quiz_id"], name: "index_questions_on_quiz_id"

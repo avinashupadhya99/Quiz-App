@@ -7,7 +7,7 @@
 	<div class="row ml-5 pl-5 mt-2">
 		<% @option_all.each do |each_option| %>
 			<% if each_option.question_id == each_question.id %>
-				<% if each_option.opt_name == each_question.answer %>
+				<% if each_option.is_answer == true %>
 					<% color='success' %>
 				<% else %>
 					<% color='primary' %>

@@ -11,12 +11,43 @@
 				</p>
 				<div class="collapse mb-2" id="collapseQuestion-<%="#{each_question.id}"%>">
 				  <div class="card card-body">
+				  	<% found = false %>
+				  	<% count=0 %>
+			  		<% if @option_all.present? %>
+			  			<% @option_all.each do |each_option| %>
+							<% if each_option.question_id == each_question.id %>
+								<% count +=1 %>
+								<% if each_option.is_answer == true %>
+									<% found = true %>
+									<% @answer = each_option.opt_name %>
+							  	<% end %>
+							<% end %>
+						<% end %>
+					<% end %>
+					<% if found == false || count<=1  %>
+						<% error_messages=Array.new %>
+						<% if found == false %>
+							<% error_messages.push("This question does not have an answer set!") %>
+						<% end %>
+						<% if count<=1 %>
+							<% error_messages.push("This question has less than 2 options") %>
+						<% end %>
+						<div class="alert alert-danger" role="alert">
+							<ul>
+								<% error_messages.each do |error_message| %>
+							  		<li><%= error_message %></li>
+							  	<% end %>
+						  	</ul>
+						</div>
+					<% end %>
 				  	<div class="row">
-				  		<div class="col-md-5 offset-md-1 col-sm-5 offset-sm-1 col-5 offset-1">
-				  			<h4>Answer:
-								<small><%= each_question.answer %></small>
-							</h4>
-				  		</div>
+						<% if found==true %>
+							<div class="col-md-5 offset-md-1 col-sm-5 offset-sm-1 col-5 offset-1">
+					  			<h4>Answer:
+									<small><%= @answer %></small>
+								</h4>
+					  		</div>
+				  		<% end %>
 				  		<div class="col-md-5 offset-md-1 col-sm-5 offset-sm-1 col-5 offset-1">
 				  			<h4>Score:
 								<small><%= each_question.score %></small>

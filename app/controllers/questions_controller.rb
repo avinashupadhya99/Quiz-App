@@ -6,8 +6,6 @@ class QuestionsController < ApplicationController
   def create
     @question = Question.new(question_params)
     if @question.save
-      @option = Option.new(:opt_name => params[:question][:answer], :question_id => @question.id)
-      @option.save
       flash[:success] = "Question was successfully created"
       redirect_to controller: 'quizzes', action: 'show', id: params[:question][:quiz_id].to_i
     else
@@ -31,7 +29,7 @@ class QuestionsController < ApplicationController
 
   def question_params
 
-    params.require(:question).permit(:questions, :answer, :score, :quiz_id)
+    params.require(:question).permit(:questions, :score, :quiz_id)
 
   end
 end
