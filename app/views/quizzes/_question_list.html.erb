@@ -2,6 +2,11 @@
 	<% if @question_all.present? %>
 		<br>
 		<h5 class="mb-2">Questions in the quiz: <%= @quiz.name %></h5>
+		<div class="d-flex mt-3">
+		  <div class="mx-auto">
+		    <%= will_paginate @question_all, renderer: WillPaginate::ActionView::BootstrapLinkRenderer %>
+		  </div>
+		</div>
 		<div class="list-group mt-1">
 			<% @question_all.each do |each_question| %>
 				<p>
