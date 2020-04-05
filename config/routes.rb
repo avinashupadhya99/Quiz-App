@@ -11,6 +11,8 @@ Rails.application.routes.draw do
 
   resources:options
 
+  get 'question/edit' => 'quizzes#editQuestion'
+
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   root 'pages#index'
 end

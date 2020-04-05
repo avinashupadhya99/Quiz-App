@@ -1,6 +1,6 @@
-<button class='option-btn btn btn-<%="#{color}"%> btn-sm' data-toggle="modal" data-target='#edit-<%="#{each_option.opt_name}"%>-Modal'><%= each_option.opt_name %></button>
+<button class='option-btn btn btn-<%="#{color}"%> btn-sm' data-toggle="modal" data-target='#editOptionModal'><%= each_option.opt_name %></button>
 <!-- Modal Form for Edit Option -->
-<div class="modal fade" id='edit-<%="#{each_option.opt_name}"%>-Modal' tabindex="-1" role="dialog" aria-labelledby='edit-<%="#{each_option.opt_name}"%>-Modal' aria-hidden="true">
+<div class="modal fade" id='editOptionModal' tabindex="-1" role="dialog" aria-labelledby='editOptionModal' aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -13,12 +13,12 @@
         <%= form_for each_option, :url => option_path(each_option), :method => :put do |f| %>
         	<div class="form-group">
 	        	<%= f.label :option %><br/>
-				<%= f.text_field :opt_name, class: "form-control", placeholder: "Enter the question" %>
-			</div>
-			<div class="form-group form-check">
-				<%= f.check_box :is_answer, class:"form-check-input" %>
-				<label class="form-check-label">Set Answer</label>
-			</div>
+    				<%= f.text_field :opt_name, class: "form-control" %>
+    			</div>
+    			<div class="form-group form-check">
+    				<%= f.check_box :is_answer, class:"form-check-input" %>
+    				<label class="form-check-label">Set Answer</label>
+    			</div>
       </div>
       <div class="modal-footer pr-5">
         

@@ -60,6 +60,10 @@ class QuizzesController < ApplicationController
     redirect_to quizzes_path
   end
 
+  def editQuestion
+    @each_question = Question.find(params[:each_question].to_i)
+  end
+
   private
 
   def quiz_params

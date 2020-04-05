@@ -17,6 +17,13 @@ class QuestionsController < ApplicationController
   end
 
   def update
+    @each_question = Question.find(params[:id])
+    if @each_question.update(question_params)
+      flash[:success] = "Option was successfully updated"
+      redirect_to controller: 'quizzes', action: 'show', id: @each_question.quiz_id
+    else
+      redirect_to controller: 'quizzes', action: 'show', id: @each_question.quiz_id
+    end
   end
 
   def show

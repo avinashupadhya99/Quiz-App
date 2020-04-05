@@ -64,14 +64,25 @@
 				  	<div class="row">
 						<div class="col-md-10 offset-md-1 mt-3">
 							<hr>
-						 	<p>
-							  <a class="btn btn-info" data-toggle="collapse" href="#collapseOption" role="button" aria-expanded="false" aria-controls="collapseExample">
-							    Add an option
-							  </a>
-							  <span class="float-right">
-							  	<%= link_to 'Delete Question', question_path(each_question), method: :delete, data: {confirm: "Are you sure?"}, class: "btn btn-danger" %>
-							  </span>
-							</p>
+						 	<div class="row">
+						 		<div class="col-md-6 col-sm-6 col-6">
+								  <a class="btn btn-info" data-toggle="collapse" href="#collapseOption" role="button" aria-expanded="false" aria-controls="collapseExample">
+								    Add an option
+								  </a>
+								</div>
+								<div class="col-md-6 col-sm-6 col-6">
+								  <span class="float-right">
+								  	<!-- Button trigger modal -->
+								  	<%= link_to 'Edit Question', question_edit_path(:each_question => each_question) %>
+									<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#questionModal">
+									  Edit Question
+									</button>
+
+									
+								  	<%= link_to 'Delete Question', question_path(each_question), method: :delete, data: {confirm: "Are you sure?"}, class: "btn btn-danger" %>
+								  </span>
+								</div>
+							</div>
 							<div class="collapse" id="collapseOption">
 							  <div class="card card-body">
 							    <%= render "options/form",
