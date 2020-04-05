@@ -64,6 +64,11 @@ class QuizzesController < ApplicationController
     @each_question = Question.find(params[:each_question].to_i)
   end
 
+  def editOption
+    @each_option = Option.find(params[:each_option].to_i)
+    @each_question = Question.find(@each_option.question_id)
+  end
+
   private
 
   def quiz_params

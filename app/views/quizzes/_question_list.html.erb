@@ -72,13 +72,9 @@
 								</div>
 								<div class="col-md-6 col-sm-6 col-6">
 								  <span class="float-right">
-								  	<!-- Button trigger modal -->
-								  	<%= link_to 'Edit Question', question_edit_path(:each_question => each_question) %>
-									<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#questionModal">
-									  Edit Question
-									</button>
-
-									
+								  	<!-- Edit Question Button -->
+								  	<%= link_to 'Edit Question', question_edit_path(:each_question => each_question), class: "btn btn-info" %>
+									<!-- Delete Question Button -->
 								  	<%= link_to 'Delete Question', question_path(each_question), method: :delete, data: {confirm: "Are you sure?"}, class: "btn btn-danger" %>
 								  </span>
 								</div>

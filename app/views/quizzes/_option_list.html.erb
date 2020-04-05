@@ -9,13 +9,14 @@
 		<% @option_all.each do |each_option| %>
 			<% if each_option.question_id == each_question.id %>
 				<% if each_option.is_answer == true %>
-					<% color='success' %>
+					<% color='btn-success' %>
 				<% else %>
-					<% color='primary' %>
+					<% color='btn-primary' %>
 				<% end %>
 				<div class="col-md-5 my-1 ml-1 text-center border border-light grey-back pt-1">
 						<h3>
-							<%= render "each_option",
+							<%= link_to "#{each_option.opt_name}", option_edit_path(:each_option => each_option), class: "option-btn btn btn-sm #{color}" %>
+							<%# render "each_option",
 		           					:color => color, :each_option => each_option %>
 						</h3>
 				</div>
