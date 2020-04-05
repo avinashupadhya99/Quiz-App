@@ -9,7 +9,8 @@ class QuestionsController < ApplicationController
       flash[:success] = "Question was successfully created"
       redirect_to controller: 'quizzes', action: 'show', id: params[:question][:quiz_id].to_i
     else
-      redirect_to controller: 'quizzes', action: 'show', id: params[:question][:quiz_id].to_i
+      @question.errors.full_messages
+      redirect_to controller: 'quizzes', action: 'show', id: params[:question][:quiz_id].to_i, question_messages: @question.errors.full_messages
     end
   end
 
@@ -19,10 +20,10 @@ class QuestionsController < ApplicationController
   def update
     @each_question = Question.find(params[:id])
     if @each_question.update(question_params)
-      flash[:success] = "Option was successfully updated"
+      flash[:success] = "Question was successfully updated"
       redirect_to controller: 'quizzes', action: 'show', id: @each_question.quiz_id
     else
-      redirect_to controller: 'quizzes', action: 'show', id: @each_question.quiz_id
+      redirect_to controller: 'quizzes', action: 'editQuestion', each_question: @each_question, question_messages: @each_question.errors.full_messages
     end
   end
 

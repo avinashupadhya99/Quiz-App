@@ -35,6 +35,11 @@ class QuizzesController < ApplicationController
   def show
     @quiz = Quiz.find(params[:id])
     @question = Question.new
+    if params.has_key?(:question_messages)
+      @question_messages = params[:question_messages] 
+    else
+      @question_messages = ""
+    end
     @questions = Question.where(quiz_id: params[:id].to_i)
     @question_all = @questions.paginate(page: params[:page], per_page: 5)
     @total_score = Question.where(quiz_id: params[:id].to_i).sum(:score)
@@ -63,6 +68,11 @@ class QuizzesController < ApplicationController
 
   def editQuestion
     @each_question = Question.find(params[:each_question].to_i)
+    if params.has_key?(:question_messages)
+      @question_messages = params[:question_messages] 
+    else
+      @question_messages = ""
+    end
   end
 
   def editOption
