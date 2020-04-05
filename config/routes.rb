@@ -11,6 +11,8 @@ Rails.application.routes.draw do
 
   resources:options
 
+  resources:categories
+  
   get 'question/edit' => 'quizzes#editQuestion'
 
   get 'option/edit' => 'quizzes#editOption'
