@@ -73,7 +73,7 @@ class QuizzesController < ApplicationController
 
   def quiz_params
 
-    params.require(:quiz).permit(:name)
+    params.require(:quiz).permit(:name, category_ids: [])
 
   end
 end

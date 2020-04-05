@@ -12,7 +12,19 @@
 		<span class="display-3"><%= @total_score %></span>
 	</div>
 </div>
-<div class="float-right mx-5 px-5"><%= link_to 'Edit Quiz', edit_quiz_path(@quiz), class: "btn btn-info btn-sm" %> <%= link_to 'Delete Quiz', quiz_path(@quiz), method: :delete, data: {confirm: "Are you sure?"}, class: "btn btn-danger btn-sm" %></div>
+
+<div class="row mr-4 ml-5">
+	<div class="col-md-8 col-sm-6 col-6 pl-4">
+		<% if @quiz.categories.any? %>
+			<%= render@quiz.categories %>
+		<% end %>
+	</div>
+	<div class="col-md-4 col-sm-6 col-6 d-flex flex-row-reverse pr-5">
+		<%= link_to 'Edit Quiz', edit_quiz_path(@quiz), class: "btn btn-info btn-sm" %><span>&nbsp;</span>
+		<%= link_to 'Delete Quiz', quiz_path(@quiz), method: :delete, data: {confirm: "Are you sure?"}, class: "btn btn-danger btn-sm" %>	
+	</div>
+</div>	
+
 <!--Question List -->
 <div class="px-5">
 	<%= render 'question_list' %>
