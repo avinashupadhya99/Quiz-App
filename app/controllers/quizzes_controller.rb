@@ -35,7 +35,8 @@ class QuizzesController < ApplicationController
   def show
     @quiz = Quiz.find(params[:id])
     @question = Question.new
-    @question_all = Question.where(quiz_id: params[:id].to_i).paginate(page: params[:page], per_page: 5)
+    @questions = Question.where(quiz_id: params[:id].to_i)
+    @question_all = @questions.paginate(page: params[:page], per_page: 5)
     @total_score = Question.where(quiz_id: params[:id].to_i).sum(:score)
     @option = Option.new
     @option_all = Option.where(question_id: Question.where(quiz_id: params[:id].to_i))
