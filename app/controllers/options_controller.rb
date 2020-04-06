@@ -20,10 +20,7 @@ class OptionsController < ApplicationController
     end
 
     if can_save==false
-      err_message = "Option "
-      err_message.concat(@option.opt_name)
-      err_message.concat(" already exists")
-      flash[:danger] = err_message
+      flash[:danger] = "Option #{@each_option.opt_name} already exists"
       redirect_to controller: 'quizzes', action: 'show', id: @question.quiz_id
     else
       if @option.save
@@ -61,10 +58,7 @@ class OptionsController < ApplicationController
     end
 
     if can_save==false
-      err_message = "Option \""
-      err_message.concat(@each_option.opt_name)
-      err_message.concat("\" already exists")
-      flash[:danger] = err_message
+      flash[:danger] = "Option #{@each_option.opt_name} already exists"
       redirect_to controller: 'quizzes', action: 'show', id: @question.quiz_id
     else
       if @each_option.update(option_params)
