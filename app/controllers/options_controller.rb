@@ -34,7 +34,7 @@ class OptionsController < ApplicationController
         flash[:success] = "Option was successfully created"
         redirect_to controller: 'quizzes', action: 'show', id: @question.quiz_id
       else
-        redirect_to controller: 'quizzes', action: 'show', id: @question.quiz_id
+        redirect_to controller: 'quizzes', action: 'show', id: @question.quiz_id, option_messages: @option.errors.full_messages
       end
     end
   end
@@ -47,13 +47,15 @@ class OptionsController < ApplicationController
     @question = Question.find(@each_option.question_id)
     @option_all = Option.where(question_id: @question.id)
     can_save=true
+    @same_option = Option.where(opt_name: @each_option.opt_name)
+    @other_options = @same_option.where.not(id: @each_option.id)
+    if @other_options.present?
+      can_save=false
+    end
     if @option_all.present?
-      @option_all.each do |each_options|
-        if each_options.opt_name==@each_option.opt_name
-          can_save=false
-        end
-        if each_options.is_answer==true
-          @answer=each_options
+      @option_all.each do |each_opt|
+        if each_opt.is_answer==true
+          @answer=each_opt
         end
       end
     end
@@ -73,7 +75,7 @@ class OptionsController < ApplicationController
         flash[:success] = "Option was successfully updated"
         redirect_to controller: 'quizzes', action: 'show', id: @question.quiz_id
       else
-        redirect_to controller: 'quizzes', action: 'show', id: @question.quiz_id
+        redirect_to controller: 'quizzes', action: 'editOption', each_option: @each_option, option_messages: @each_option.errors.full_messages
       end
     end
   end

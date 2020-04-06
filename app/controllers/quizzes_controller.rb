@@ -40,6 +40,11 @@ class QuizzesController < ApplicationController
     else
       @question_messages = ""
     end
+    if params.has_key?(:option_messages)
+      @option_messages = params[:option_messages] 
+    else
+      @option_messages = ""
+    end
     @questions = Question.where(quiz_id: params[:id].to_i)
     @question_all = @questions.paginate(page: params[:page], per_page: 5)
     @total_score = Question.where(quiz_id: params[:id].to_i).sum(:score)
@@ -78,6 +83,11 @@ class QuizzesController < ApplicationController
   def editOption
     @each_option = Option.find(params[:each_option].to_i)
     @each_question = Question.find(@each_option.question_id)
+    if params.has_key?(:option_messages)
+      @option_messages = params[:option_messages] 
+    else
+      @option_messages = ""
+    end
   end
 
   private
