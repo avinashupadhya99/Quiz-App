@@ -9,7 +9,15 @@
 		<div class="col-md-4 offset-md-4 alert alert-secondary text-center clickable" onclick="window.location='<%= category_path(category) %>'">
 				<span class="h3"><%= category.name %></span>
         <br>
-        <span class="text-muted"><%= pluralize(category.quizzes.count, "quiz") %></span>
+        <% quizzes = Quiz.where(id: Question.select("quiz_id").group(:quiz_id).having("count(id)>1")) %>
+          <% category_quiz = category.quizzes %>
+          <% cnt=0 %>
+          <% category_quiz.each do |quiz| %>
+            <% if quizzes.include?(quiz) %>
+              <% cnt+=1 %>
+            <% end %>
+          <% end %>
+        <span class="text-muted"><%= pluralize(cnt, "quiz") %></span>
 		</div>
 	</div>
 <% end %>

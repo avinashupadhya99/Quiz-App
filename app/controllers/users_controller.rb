@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-
+	
 	before_action :require_user, only: [:editPassword]
 
 	def index
@@ -13,8 +13,9 @@ class UsersController < ApplicationController
 	def create
 		@user = User.new(user_params)
 		if @user.save
+			session[:user_id] = @user.id
 			flash[:success] = "Welcome to the quiz app, #{@user.username}"
-			redirect_to quizzes_path
+			redirect_to user_path(@user)
 		else
 			render 'new'
 		end

@@ -1,10 +1,14 @@
 <h1 class="mt-3 text-center"><%= @category.name %> Category</h1>
 
-<div class="float-right pr-5 mb-3">
-	<%= link_to 'Edit Category', edit_category_path(@category), class: "btn btn-info btn-sm" %>
-</div>
+<% if logged_in? && current_user.admin? %>
+	<div class="float-right pr-5 mb-3">
+		<%= link_to 'Edit Category', edit_category_path(@category), class: "btn btn-info btn-sm" %>
+	</div>
+<% end %>
 
 <%= render 'quizzes/quiz', obj: @category_quizzes %>
+
+
 
 <div class="d-flex mt-3">
   <div class="mx-auto">

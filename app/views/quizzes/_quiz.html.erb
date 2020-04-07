@@ -13,7 +13,7 @@
       <% @total_score = @question_all.sum(:score) %>
       <%# link_to quiz_path(quiz) do %>
         <tr>
-          <% if logged_in? && @question_all.length()>=2 %>
+          <% if logged_in? && current_user.admin? %>
             <td onclick="window.location='<%= quiz_path(quiz) %>'" class="clickable"><%= quiz.name %></td>
             <td onclick="window.location='<%= quiz_path(quiz) %>'" class="clickable"><%= @total_score %></td>
             <td onclick="window.location='<%= quiz_path(quiz) %>'" class="clickable"><%= @question_all.length() %></td>
@@ -26,13 +26,19 @@
                   </span>
                 <% end %>
             </td>
-          <% elsif !logged_in? %>
-            <td onclick="window.location='<%= quiz_path(quiz) %>'" class="clickable"><%= quiz.name %></td>
-            <td onclick="window.location='<%= quiz_path(quiz) %>'" class="clickable"><%= @total_score %></td>
-            <td onclick="window.location='<%= quiz_path(quiz) %>'" class="clickable"><%= @question_all.length() %></td>
+          <% elsif logged_in?  %>
+            <td><%= quiz.name %></td>
+            <td><%= @total_score %></td>
+            <td><%= @question_all.length() %></td>
 
-            <td>
+            <td class="clickable">
+              <%= link_to 'Take Quiz', root_path, class: "btn btn-success btn-sm" %>
             </td>
+          <% elsif !logged_in?  %>
+            <td><%= quiz.name %></td>
+            <td><%= @total_score %></td>
+            <td><%= @question_all.length() %></td>
+            <td></td>
 
           <% end %>
         </tr>

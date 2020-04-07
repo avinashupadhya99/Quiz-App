@@ -1,4 +1,8 @@
 class OptionsController < ApplicationController
+
+  before_action :require_user
+  before_action :require_admin
+
   def new
     @option = Option.new
   end

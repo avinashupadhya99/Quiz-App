@@ -1,9 +1,15 @@
 class QuizzesController < ApplicationController
 
   before_action :require_user, except: [:index]
+  before_action :require_admin, except: [:index]
 
   def index
-    @quizzes = Quiz.paginate(page: params[:page], per_page: 6)
+    if logged_in? and current_user.admin?
+      @quizzes = Quiz.paginate(page: params[:page], per_page: 6)
+    else
+      @quizzes = Quiz.where(id: Question.select("quiz_id").group(:quiz_id).having("count(id)>1")).paginate(page: params[:page], per_page: 6)
+    end
+        
   end
   def new
     @quiz = Quiz.new
