@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-	
+
 	before_action :require_user, only: [:editPassword]
 
 	def index
@@ -11,13 +11,18 @@ class UsersController < ApplicationController
 	end
 
 	def create
-		@user = User.new(user_params)
-		if @user.save
-			session[:user_id] = @user.id
-			flash[:success] = "Welcome to the quiz app, #{@user.username}"
-			redirect_to user_path(@user)
+		if params[:user][:password]!=params[:user][:conf_password]
+			flash[:danger] = "Passwords don't match"
+			redirect_to signup_path
 		else
-			render 'new'
+			@user = User.new(user_params)
+			if @user.save
+				session[:user_id] = @user.id
+				flash[:success] = "Welcome to the quiz app, #{@user.username}"
+				redirect_to user_path(@user)
+			else
+				render 'new'
+			end
 		end
 	end
 
@@ -71,6 +76,17 @@ class UsersController < ApplicationController
 			flash[:danger] = "Wrong old password"
 			redirect_to editPassword_path
 		end
+	end
+
+	def destroy
+		@user = User.find(params[:id])
+		if current_user!=@user
+			flash[:danger]="You can only delete your own account"
+			redirect_to root_path
+		end
+		@user.destroy
+		flash[:danger] = "User and all submissions by user have been deleted"
+		redirect_to users_path
 	end
 
 	private
