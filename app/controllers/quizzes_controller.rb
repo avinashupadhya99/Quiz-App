@@ -1,4 +1,7 @@
 class QuizzesController < ApplicationController
+
+  before_action :require_user, except: [:index]
+
   def index
     @quizzes = Quiz.paginate(page: params[:page], per_page: 6)
   end

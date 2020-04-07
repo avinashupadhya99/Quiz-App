@@ -21,18 +21,23 @@
           <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
         </form>
       </li>
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Account
-        </a>
-        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="#">View account</a>
-          <%# link_to 'Edit Account', edit_user_path, class:"dropdown-item" %>
-          <a class="dropdown-item" href="#">Edit Password</a>
-          <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="#">Log out</a>
-        </div>
-      </li>
+      <% if logged_in? %>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Account
+          </a>
+          <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" href="#">View account</a>
+            <%= link_to 'Edit Account', edit_user_path(current_user), class:"dropdown-item" %>
+            <%= link_to 'Edit Password', editPassword_path, class:"dropdown-item" %>
+            <div class="dropdown-divider"></div>
+            <%= link_to 'Log out', logout_path, method: :delete, class: "dropdown-item" %>
+          </div>
+        </li>
+        <% else %>
+          <li class="nav-item"><%= link_to 'Log In', login_path, class: "nav-link" %></li>
+          <li class="nav-item"><%= link_to 'Sign Up', signup_path, class: "nav-link" %></li>
+        <% end %>
     </ul>
     
   </div>

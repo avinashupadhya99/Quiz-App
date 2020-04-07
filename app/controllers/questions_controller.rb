@@ -1,4 +1,7 @@
 class QuestionsController < ApplicationController
+
+  before_action :require_user 
+
   def new
     @question = Question.new
   end

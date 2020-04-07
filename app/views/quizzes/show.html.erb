@@ -1,6 +1,10 @@
 <h1 class="text-center mt-3 display-3 font-weight-bolder"><%= @quiz.name %></h1>
 
-<%# render partial: 'shared/question_errors', locals: {question_with_error: @question_with_error} %>
+<% if @questions.length()<2 %>
+	<div class="alert alert-danger" role="alert">
+		This quiz has less than 2 questions!
+	</div>
+<% end %>
 <%= render 'questions_errors' %>
 
 <%= render 'options_errors' %>
@@ -19,7 +23,7 @@
 <div class="row mr-4 ml-5">
 	<div class="col-md-8 col-sm-6 col-6 pl-4">
 		<% if @quiz.categories.any? %>
-			<%= render@quiz.categories %>
+			<%= render @quiz.categories %>
 		<% end %>
 	</div>
 	<div class="col-md-4 col-sm-6 col-6 d-flex flex-row-reverse pr-5">

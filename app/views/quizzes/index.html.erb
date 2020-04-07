@@ -2,7 +2,9 @@
 
 <%= render 'quiz', obj: @quizzes %>
 
-<%= link_to 'New Quiz', new_quiz_path, class: 'btn btn-primary btn-sm' %>
+<% if logged_in? %>
+	<%= link_to 'New Quiz', new_quiz_path, class: 'btn btn-primary btn-sm' %>
+<% end %>
 <div class="d-flex mt-3">
   <div class="mx-auto">
     <%= will_paginate @quizzes, renderer: WillPaginate::ActionView::BootstrapLinkRenderer %>
