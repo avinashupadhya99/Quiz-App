@@ -1,0 +1,33 @@
+<h1 class="text-center mt-3 mb-5">Users of Quiz App</h1>
+
+<table class="table table-hover mt-4">
+  <thead>
+    <tr>
+      <th scope="col">User Name</th>
+      <th scope="col">Email</th>
+      <th scope="col">Score</th>
+      <th scope="col">Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @users.each do |user| %>
+        <tr>
+            <td><%= user.username %></td>
+            <td><%= user.email %></td>
+            <td>0<%#  %></td>
+            <td>
+              <%= link_to 'View Profile', user_path(user), class: "btn btn-success btn-sm" %>
+              <% if current_user.admin? %>
+                <%= link_to 'Edit User', edit_user_path(user), class: "btn btn-info btn-sm ml-4" %>
+                <%= link_to 'Delete User', user_path(user), method: :delete, data: {confirm: "Are you sure?"}, class: "btn btn-danger btn-sm ml-4" %>
+              <% end %>
+            </td>
+        </tr>
+    <% end %>
+  </tbody>
+</table>
+<div class="d-flex mt-3">
+  <div class="mx-auto">
+    <%= will_paginate @quizzes, renderer: WillPaginate::ActionView::BootstrapLinkRenderer %>
+  </div>
+</div>

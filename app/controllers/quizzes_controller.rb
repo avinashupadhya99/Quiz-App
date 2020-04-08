@@ -1,7 +1,7 @@
 class QuizzesController < ApplicationController
 
   before_action :require_user, except: [:index]
-  before_action :require_admin, except: [:index]
+  before_action :require_admin, except: [:index, :show]
 
   def index
     if logged_in? and current_user.admin?
@@ -43,6 +43,10 @@ class QuizzesController < ApplicationController
 
   def show
     @quiz = Quiz.find(params[:id])
+    @questions = Question.where(quiz_id: params[:id].to_i)
+    if !current_user.admin? && @questions.length()<2 
+      redirect_to quizzes_path
+    end
     @question = Question.new
     if params.has_key?(:question_messages)
       @question_messages = params[:question_messages] 
@@ -54,7 +58,7 @@ class QuizzesController < ApplicationController
     else
       @option_messages = ""
     end
-    @questions = Question.where(quiz_id: params[:id].to_i)
+    
     @question_all = @questions.paginate(page: params[:page], per_page: 5)
     @total_score = Question.where(quiz_id: params[:id].to_i).sum(:score)
     @option = Option.new

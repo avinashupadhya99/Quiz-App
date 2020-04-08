@@ -1,9 +1,9 @@
 class UsersController < ApplicationController
 
-	before_action :require_user, only: [:editPassword]
+	before_action :require_user, except: [:index, :new, :create]
 
 	def index
-		@users = User.all
+		@users = User.paginate(page: params[:page], per_page: 6)
 	end
 
 	def new
@@ -53,6 +53,7 @@ class UsersController < ApplicationController
 
 	def show
 		@user = User.find(params[:id])
+		@quizzes = Quiz.where(id: Submission.select(:quiz_id).where(user_id: @user.id))
 	end
 
 	def editPassword
