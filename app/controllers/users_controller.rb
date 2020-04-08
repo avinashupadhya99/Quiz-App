@@ -40,6 +40,9 @@ class UsersController < ApplicationController
 			flash[:danger]="You can only edit your own account"
 			redirect_to root_path
 		end
+		if params[:password].blank?
+			params.delete(:password)
+		end
 		if @user.update(user_params)
 			flash[:success] = "Your account was updated successfully"
 			redirect_to quizzes_path
