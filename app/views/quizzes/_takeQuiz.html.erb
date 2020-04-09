@@ -1,12 +1,10 @@
 <div class="row mt-4 text-center">
-	<div class="col-md-5 offset-md-1 col-sm-5 offset-sm-1 col-5 offset-1 border border-primary alert alert-primary">
-		<h4>Number of questions</h4>
-		<span class="display-3"><%= @questions.length() %></span>
-	</div>
 	<% tscore=0 %>
+	<% quest_count=0 %>
 	<% @questions.each do |each_question| %>
 		<% found = false %>
 	  	<% count=0 %>
+	  	
   		<% if @option_all.present? %>
   			<% @option_all.each do |each_option| %>
 				<% if each_option.question_id == each_question.id %>
@@ -18,9 +16,15 @@
 			<% end %>
 		<% end %>
 		<% if found==true && count>=2 %>
+			<% quest_count+=1 %>
 			<% tscore+=each_question.score %>
 		<% end %>
 	<% end %>
+	<div class="col-md-5 offset-md-1 col-sm-5 offset-sm-1 col-5 offset-1 border border-primary alert alert-primary">
+		<h4>Number of questions</h4>
+		<span class="display-3"><%= quest_count %></span>
+	</div>
+
 	<div class="col-md-5 col-sm-5 col-5 border border-left-0 border-primary alert alert-primary">
 		<h4>Total Score</h4>
 		<span class="display-3"><%= tscore %></span>

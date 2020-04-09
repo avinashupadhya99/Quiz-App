@@ -16,5 +16,5 @@
 
 <% if @quizzes.present? %>
 	<h3 class="ml-5">Submissions:</h3>
-	<%= render 'quizzes/quiz', obj: @quizzes %>
+	<%= render 'quizzes/quiz', obj: @quizzes, type:"Submission" %>
 <% end %>

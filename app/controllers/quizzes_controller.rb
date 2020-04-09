@@ -44,7 +44,29 @@ class QuizzesController < ApplicationController
   def show
     @quiz = Quiz.find(params[:id])
     @questions = Question.where(quiz_id: params[:id].to_i)
-    if !current_user.admin? && @questions.length()<2 
+    @question_all = @questions.paginate(page: params[:page], per_page: 5)
+    @total_score = Question.where(quiz_id: params[:id].to_i).sum(:score)
+    @option = Option.new
+    @option_all = Option.where(question_id: Question.where(quiz_id: params[:id].to_i))
+    quest_count=0 
+    @questions.each do |each_question| 
+      found = false 
+      count=0 
+      if @option_all.present? 
+        @option_all.each do |each_option| 
+          if each_option.question_id == each_question.id 
+            count +=1 
+            if each_option.is_answer == true 
+              found = true 
+            end 
+          end 
+        end 
+      end 
+       if found==true && count>=2 
+         quest_count+=1 
+       end 
+    end 
+    if !current_user.admin? && (@questions.length()<2 || quest_count < 2)
       redirect_to quizzes_path
     end
     @question = Question.new
@@ -59,10 +81,7 @@ class QuizzesController < ApplicationController
       @option_messages = ""
     end
     
-    @question_all = @questions.paginate(page: params[:page], per_page: 5)
-    @total_score = Question.where(quiz_id: params[:id].to_i).sum(:score)
-    @option = Option.new
-    @option_all = Option.where(question_id: Question.where(quiz_id: params[:id].to_i))
+    
   end
 
   def destroy

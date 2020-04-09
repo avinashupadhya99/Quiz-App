@@ -13,10 +13,11 @@
       <% obj.each do |quiz| %>
         <% @question_all = Question.where(quiz_id: quiz.id) %>
         <% @option_all = Option.where(question_id: Question.where(quiz_id: quiz.id)) %>
+        <% quest_count=0 %>
         <% @total_score = @question_all.sum(:score) %>
         <% tscore=0 %>
         <% count=0 %>
-        <% quest_count=0 %>
+        
         <% @question_all.each do |each_question| %>
           <% found = false %>
           <% if @option_all.present? %>
@@ -34,7 +35,7 @@
             <% tscore+=each_question.score %>
           <% end %>
         <% end %>
-        <% if quest_count>1 || current_user.admin? %>
+        <% if quest_count>1 || current_user.admin? || type="Submission" %>
           <tr>
             <% if logged_in? && current_user.admin? %>
               <td onclick="window.location='<%= quiz_path(quiz) %>'" class="clickable"><%= quiz.name %></td>
@@ -52,15 +53,17 @@
             <% elsif logged_in?  %>
               <td><%= quiz.name %></td>
               <td><%= tscore %></td>
-              <td><%= @question_all.length() %></td>
+              <td><%= quest_count %></td>
 
-              <td class="clickable">
-                <%= link_to 'Take Quiz', quiz_path(quiz), class: "btn btn-success btn-sm" %>
+              <td>
+                <% if quest_count>1 %>
+                  <%= link_to 'Take Quiz', quiz_path(quiz), class: "btn btn-success btn-sm" %>
+                <% end %>
               </td>
             <% elsif !logged_in?  %>
               <td><%= quiz.name %></td>
               <td><%= tscore %></td>
-              <td><%= @question_all.length() %></td>
+              <td><%= quest_count %></td>
               <td></td>
 
             <% end %>
