@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20200408192731) do
+ActiveRecord::Schema.define(version: 20200409104130) do
 
   create_table "categories", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
     t.string "name"
@@ -21,6 +21,14 @@ ActiveRecord::Schema.define(version: 20200408192731) do
     t.bigint "question_id"
     t.boolean "is_answer", default: false
     t.index ["question_id"], name: "index_options_on_question_id"
+  end
+
+  create_table "quest_submissions", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
+    t.string "option"
+    t.bigint "question_id"
+    t.bigint "submission_id"
+    t.index ["question_id"], name: "index_quest_submissions_on_question_id"
+    t.index ["submission_id"], name: "index_quest_submissions_on_submission_id"
   end
 
   create_table "questions", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
@@ -60,6 +68,8 @@ ActiveRecord::Schema.define(version: 20200408192731) do
   end
 
   add_foreign_key "options", "questions"
+  add_foreign_key "quest_submissions", "questions"
+  add_foreign_key "quest_submissions", "submissions"
   add_foreign_key "questions", "quizzes"
   add_foreign_key "submissions", "quizzes"
   add_foreign_key "submissions", "users"

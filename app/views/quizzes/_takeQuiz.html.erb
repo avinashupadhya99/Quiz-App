@@ -13,4 +13,28 @@
 	<% if @quiz.categories.any? %>
 		<%= render @quiz.categories %>
 	<% end %>
-</div>	
+</div>
+
+<h3 class="text-center mt-4">Questions:</h3>
+
+<div class="text-center mt-3">
+	<% i=1 %>
+	<div class="accordion" id="accordionExample">
+		<% while i <= @questions.length()  %>
+			<button class="btn btn-primary btn-sm" type="button" data-toggle="collapse" data-target="#collapse<%="#{i}"%>" aria-expanded="true" aria-controls="collapse<%="#{i}"%>"><%= i %></button>
+		<% i+=1 %>
+		<% end %>
+		<% i=1 %>
+		<% @questions.each do |each_question| %>
+			<% if i==1 %>
+				<% show="show" %>
+			<% else %>
+				<% show="" %>
+			<% end %>
+			<div id="collapse<%="#{i}"%>" class="collapse <%="#{show}"%> border mt-3 py-1" aria-labelledby="heading<%="#{i}"%>" data-parent="#accordionExample">
+				<%= each_question.questions %>
+			</div>
+			<% i+=1 %>
+		<% end %>
+	</div>
+</div>
