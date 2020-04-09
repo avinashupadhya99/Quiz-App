@@ -67,18 +67,6 @@ class QuizzesController < ApplicationController
 
   def destroy
     @quiz = Quiz.find(params[:id])
-    @question_all = Question.where(quiz_id: @quiz.id)
-    if @question_all.present?
-      @question_all.each do |each_question|
-        @option_all = Option.where(question_id: each_question.id)
-        if @option_all.present?
-          @option_all.each do |each_option|
-            each_option.destroy
-          end
-        end
-        each_question.destroy
-      end
-    end
     @quiz.destroy
     flash[:danger] = "Quiz was successfully deleted"
     redirect_to quizzes_path

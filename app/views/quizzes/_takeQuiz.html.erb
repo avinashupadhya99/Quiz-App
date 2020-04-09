@@ -3,9 +3,27 @@
 		<h4>Number of questions</h4>
 		<span class="display-3"><%= @questions.length() %></span>
 	</div>
+	<% tscore=0 %>
+	<% @questions.each do |each_question| %>
+		<% found = false %>
+	  	<% count=0 %>
+  		<% if @option_all.present? %>
+  			<% @option_all.each do |each_option| %>
+				<% if each_option.question_id == each_question.id %>
+					<% count +=1 %>
+					<% if each_option.is_answer == true %>
+						<% found = true %>
+				  	<% end %>
+				<% end %>
+			<% end %>
+		<% end %>
+		<% if found==true && count>=2 %>
+			<% tscore+=each_question.score %>
+		<% end %>
+	<% end %>
 	<div class="col-md-5 col-sm-5 col-5 border border-left-0 border-primary alert alert-primary">
 		<h4>Total Score</h4>
-		<span class="display-3"><%= @total_score %></span>
+		<span class="display-3"><%= tscore %></span>
 	</div>
 </div>
 
@@ -15,26 +33,90 @@
 	<% end %>
 </div>
 
-<h3 class="text-center mt-4">Questions:</h3>
 
-<div class="text-center mt-3">
-	<% i=1 %>
-	<div class="accordion" id="accordionExample">
-		<% while i <= @questions.length()  %>
-			<button class="btn btn-primary btn-sm" type="button" data-toggle="collapse" data-target="#collapse<%="#{i}"%>" aria-expanded="true" aria-controls="collapse<%="#{i}"%>"><%= i %></button>
-		<% i+=1 %>
-		<% end %>
+<%= form_for Submission.new, :url => submissions_path, :method => :post do |f| %>
+
+	<h3 class="text-center mt-4">Questions:</h3>
+
+	<div class="mt-3">
 		<% i=1 %>
-		<% @questions.each do |each_question| %>
-			<% if i==1 %>
-				<% show="show" %>
-			<% else %>
-				<% show="" %>
-			<% end %>
-			<div id="collapse<%="#{i}"%>" class="collapse <%="#{show}"%> border mt-3 py-1" aria-labelledby="heading<%="#{i}"%>" data-parent="#accordionExample">
-				<%= each_question.questions %>
+		<div class="accordion" id="accordionExample">
+			<div class="text-center">
+				<% @questions.each do |each_question| %>
+					<% found = false %>
+				  	<% count=0 %>
+			  		<% if @option_all.present? %>
+			  			<% @option_all.each do |each_option| %>
+							<% if each_option.question_id == each_question.id %>
+								<% count +=1 %>
+								<% if each_option.is_answer == true %>
+									<% found = true %>
+							  	<% end %>
+							<% end %>
+						<% end %>
+					<% end %>
+					<% if found==true && count>=2 %>
+							<button class="btn btn-primary btn-sm" type="button" data-toggle="collapse" data-target="#collapse<%="#{i}"%>" aria-expanded="true" aria-controls="collapse<%="#{i}"%>"><%= i %></button>
+						<% i+=1 %>
+					<% end %>
+				<% end %>
 			</div>
-			<% i+=1 %>
-		<% end %>
+			<% i=1 %>
+			<% @questions.each do |each_question| %>
+				<% if i==1 %>
+					<% show="show" %>
+				<% else %>
+					<% show="" %>
+				<% end %>
+				<% found = false %>
+			  	<% count=0 %>
+		  		<% if @option_all.present? %>
+		  			<% @option_all.each do |each_option| %>
+						<% if each_option.question_id == each_question.id %>
+							<% count +=1 %>
+							<% if each_option.is_answer == true %>
+								<% found = true %>
+						  	<% end %>
+						<% end %>
+					<% end %>
+				<% end %>
+				<% if found==true && count>=2 %>
+					<div id="collapse<%="#{i}"%>" class="collapse <%="#{show}"%> border mt-3 py-1" aria-labelledby="heading<%="#{i}"%>" data-parent="#accordionExample">
+						<div class="text-center">
+							<h2 class="font-weight-normal"><%= each_question.questions %></h2>
+						</div>
+						<div class="row">
+							<div class="col-md-8 offset-md-2 col-sm-10 offset-sm-1 col-8 offset-1">
+								<h4>Score:
+									<small><%= each_question.score %></small>
+								</h4>
+								<h4 class="mt-3">Options:</h4>
+							</div>
+							<div class="col-md-6 offset-md-3 col-sm-6 offset-sm-3 col-xs-8 offset-xs-2 col-8 offset-1">
+								<div class="row">
+									<% @option_all.each do |each_option| %>
+										<% if each_option.question_id == each_question.id %>
+											<div class="col-md-5 my-1 ml-1 text-center border border-light grey-back pt-1">
+												<h3>
+													<button class="btn btn-primary btn-sm option-btn"><%= each_option.opt_name %></button>
+												</h3>
+											</div>
+										<% end %>
+									<% end %>
+								</div>
+							</div>
+						</div>
+
+					</div>
+					<% i+=1 %>
+				<% end %>
+			<% end %>
+		</div>
 	</div>
-</div>
+
+	<%= f.hidden_field :quiz_id, value: @quiz.id %>
+	<%= f.hidden_field :user_id, value: current_user.id %>
+
+	<%= f.submit class: "btn btn-primary" %>
+
+<% end %>
