@@ -41,7 +41,7 @@
             <% tscore+=each_question.score %>
           <% end %>
         <% end %>
-        <% if quest_count>1 || current_user.admin? || type="Submission" %>
+        <% if quest_count>1 || (logged_in? && current_user.admin?) || type=="Submission" %>
           <tr>
             <% if logged_in? && current_user.admin? %>
               <td onclick="window.location='<%= quiz_path(quiz) %>'" class="clickable"><%= quiz.name %></td>

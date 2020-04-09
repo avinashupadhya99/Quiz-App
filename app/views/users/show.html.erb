@@ -16,7 +16,10 @@
 		</div>
 	</div>
 <% end %>
-
+<%# old_submission = Submission.where(user_id: 2, quiz_id: 4) %>
+		<%# old_submission.each do |old_sub| %>
+			<%#= old_sub.id %>
+		<%# end %>
 <% if @quizzes.present? %>
 	<h3 class="ml-5">Submissions:</h3>
 	<%= render 'quizzes/quiz', obj: @quizzes, type:"Submission" %>
