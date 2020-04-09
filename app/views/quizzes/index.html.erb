@@ -1,6 +1,6 @@
 <h1 class="mt-3 text-center">Listing all Quizzes</h1>
 
-<%= render 'quiz', obj: @quizzes %>
+<%= render 'quiz', obj: @quizzes, type: "Quiz" %>
 
 <% if logged_in? && current_user.admin? %>
 	<%= link_to 'New Quiz', new_quiz_path, class: 'btn btn-primary btn-sm' %>

@@ -53,7 +53,11 @@ class UsersController < ApplicationController
 
 	def show
 		@user = User.find(params[:id])
+		if @user.admin? && !current_user.admin?
+			redirect_to users_path
+		end
 		@quizzes = Quiz.where(id: Submission.select(:quiz_id).where(user_id: @user.id))
+		@submissions = Submission.where(user_id: @user.id)
 	end
 
 	def editPassword

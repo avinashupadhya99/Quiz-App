@@ -9,7 +9,7 @@ class QuizzesController < ApplicationController
     else
       @quizzes = Quiz.where(id: Question.select("quiz_id").group(:quiz_id).having("count(id)>1")).paginate(page: params[:page], per_page: 6)
     end
-        
+     @submissions = Submission.all   
   end
   def new
     @quiz = Quiz.new

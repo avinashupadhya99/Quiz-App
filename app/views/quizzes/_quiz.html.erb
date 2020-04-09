@@ -5,7 +5,13 @@
       <tr>
         <th scope="col">Name</th>
         <th scope="col">Total Score</th>
+        <% if type=="Submission" %>
+          <th scope="col">User's Score</th>
+        <% end %>
         <th scope="col">Number of questions</th>
+        <% if type=="Submission" %>
+          <th scope="col">Time</th>
+        <% end %>
         <th scope="col">Actions</th>
       </tr>
     </thead>
@@ -40,8 +46,25 @@
             <% if logged_in? && current_user.admin? %>
               <td onclick="window.location='<%= quiz_path(quiz) %>'" class="clickable"><%= quiz.name %></td>
               <td onclick="window.location='<%= quiz_path(quiz) %>'" class="clickable"><%= @total_score %></td>
+              <% if type=="Submission" %>
+                <% @submissions.each do |sub| %>
+                  <% if sub.quiz_id==quiz.id %>
+                    <td onclick="window.location='<%= quiz_path(quiz) %>'" class="clickable">
+                      <%= sub.score %>
+                    </td>
+                  <% end %>
+                <% end %>
+              <% end %>
               <td onclick="window.location='<%= quiz_path(quiz) %>'" class="clickable"><%= @question_all.length() %></td>
-
+              <% if type=="Submission" %>
+                <% @submissions.each do |sub| %>
+                  <% if sub.quiz_id==quiz.id %>
+                    <td onclick="window.location='<%= quiz_path(quiz) %>'" class="clickable">
+                      <%= time_ago_in_words(sub.created_at) %> ago
+                    </td>
+                  <% end %>
+                <% end %>
+              <% end %>
               <td><%= link_to 'Edit Quiz', edit_quiz_path(quiz), class: "btn btn-info btn-sm" %>
                   <%= link_to 'Delete Quiz', quiz_path(quiz), method: :delete, data: {confirm: "Are you sure?"}, class: "btn btn-danger btn-sm ml-4" %>
                   <% if @question_all.length()<2 %>
@@ -53,8 +76,25 @@
             <% elsif logged_in?  %>
               <td><%= quiz.name %></td>
               <td><%= tscore %></td>
+              <% if type=="Submission" %>
+                <% @submissions.each do |sub| %>
+                  <% if sub.quiz_id==quiz.id %>
+                    <td>
+                      <%= sub.score %>
+                    </td>
+                  <% end %>
+                <% end %>
+              <% end %>
               <td><%= quest_count %></td>
-
+              <% if type=="Submission" %>
+                <% @submissions.each do |sub| %>
+                  <% if sub.quiz_id==quiz.id %>
+                    <td>
+                      <%= time_ago_in_words(sub.created_at) %> ago
+                    </td>
+                  <% end %>
+                <% end %>
+              <% end %>
               <td>
                 <% if quest_count>1 %>
                   <%= link_to 'Take Quiz', quiz_path(quiz), class: "btn btn-success btn-sm" %>

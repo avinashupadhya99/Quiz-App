@@ -46,7 +46,7 @@ class CategoriesController < ApplicationController
 				@category_quizzes.push(quiz)
 			end
 		end
-
+		@submissions = Submission.all
 		@category_quizzes = @category_quizzes.paginate(page: params[:page], per_page: 6)
 	end
 

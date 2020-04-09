@@ -10,11 +10,15 @@
     </tr>
   </thead>
   <tbody>
+
     <% @users.each do |user| %>
+      <% if !user.admin? %>
+        <% user_score = Submission.where(user_id: user.id).sum(:score) %>
+
         <tr>
             <td><%= user.username %></td>
             <td><%= user.email %></td>
-            <td>0<%#  %></td>
+            <td><%= user_score %></td>
             <td>
               <%= link_to 'View Profile', user_path(user), class: "btn btn-success btn-sm" %>
               <% if current_user.admin? %>
@@ -23,6 +27,7 @@
               <% end %>
             </td>
         </tr>
+      <% end %>
     <% end %>
   </tbody>
 </table>

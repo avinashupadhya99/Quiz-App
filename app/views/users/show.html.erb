@@ -1,7 +1,10 @@
-<h1 class="text-center mt-3 mb-5">Welcome to <%= @user.username %>'s page</h1>
+<h1 class="text-center mt-3 mb-3">Welcome to <%= @user.username %>'s page</h1>
+<div class="text-center mb-5">
+	Joined <%= time_ago_in_words(@user.created_at) %> ago
+</div>
 
 <% if @user==current_user %>
-	<div class="text-center mt-5">
+	<div class="text-center">
 		<div class="row">
 			<div class="col-md-6 offset-md-3">
 				<h4 class="font-weight-normal"><%= @user.email %></h4>

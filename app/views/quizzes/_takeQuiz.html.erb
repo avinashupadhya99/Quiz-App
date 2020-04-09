@@ -120,7 +120,8 @@
 
 	<%= f.hidden_field :quiz_id, value: @quiz.id %>
 	<%= f.hidden_field :user_id, value: current_user.id %>
-
-	<%= f.submit class: "btn btn-primary" %>
+	<div class="form-group text-center mt-4">
+		<%= f.submit "Finish Quiz", class: "btn btn-primary" %>
+	</div>
 
 <% end %>
