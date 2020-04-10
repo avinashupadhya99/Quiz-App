@@ -66,9 +66,9 @@
 
 				<% end %>
 			</div>
-			<% i=1 %><!--Used to specify the question number-->
+			<% j=1 %><!--Used to specify the question number-->
 			<% @questions.each do |each_question| %>
-				<% if i==1 %><!--Add show class to the first question only i.e, only first question is displayed when page is loaded-->
+				<% if j==1 %><!--Add show class to the first question only i.e, only first question is displayed when page is loaded-->
 					<% show="show" %>
 				<% else %>
 					<% show="" %>
@@ -76,7 +76,7 @@
 				<% found = false %><!--For checking is question is valid i.e, more than 1 option and has answer-->
 			  	<% count=0 %>
 		  		<% if @option_all.present? %>
-		  			<% @option_all.each do |each_option| %><!--Ch-->
+		  			<% @option_all.each do |each_option| %><!--Check for validity of question-->
 						<% if each_option.question_id == each_question.id %>
 							<% count +=1 %>
 							<% if each_option.is_answer == true %>
@@ -86,10 +86,10 @@
 					<% end %>
 				<% end %>
 				<% if found==true && count>=2 %><!--Display only valid questions-->
-						<div id="collapse<%="#{i}"%>" class="collapse <%="#{show}"%> border mt-3 py-1" aria-labelledby="heading<%="#{i}"%>" data-parent="#accordionExample">
+						<div id="collapse<%="#{j}"%>" class="collapse <%="#{show}"%> border mt-3 py-1" aria-labelledby="heading<%="#{j}"%>" data-parent="#accordionExample">
 							<%= f.fields_for :quest_submissions do |q| %><!--Inner form for quest_submissions-->
 								<div class="text-center mb-3"><!--Question name-->
-									(<%= i %>)<h2 class="font-weight-normal"><%= each_question.questions %></h2>
+									(<%= j %>)<h2 class="font-weight-normal"><%= each_question.questions %></h2>
 								</div>
 								<div class="row">
 									<div class="col-md-8 offset-md-2 col-sm-10 offset-sm-1 col-8 offset-1">
@@ -118,11 +118,16 @@
 								</div>
 								<%= q.hidden_field :question_id, value: each_question.id %><!--Submit question id also through the inner form-->
 							<% end %>
-							<div class="text-center">
-								<small>(Please click on the next question number to continue)</small>
+							<div class="text-center mt-4 mb-3">
+								<% if j!=1 %>
+									<button class="btn btn-secondary btn-sm" type="button" data-toggle="collapse" data-target="#collapse<%="#{j-1}"%>" aria-expanded="true" aria-controls="collapse<%="#{j-1}"%>">Prev Question</button>
+								<% end %>&nbsp;
+								<% if j!=i-1 %>
+									<button class="btn btn-secondary btn-sm" type="button" data-toggle="collapse" data-target="#collapse<%="#{j+1}"%>" aria-expanded="true" aria-controls="collapse<%="#{j+1}"%>">Next Question</button>
+								<% end %>
 							</div>
 						</div>
-						<% i+=1 %>
+						<% j+=1 %>
 				<% end %>
 			<% end %>
 		</div>
@@ -131,7 +136,7 @@
 	<%= f.hidden_field :quiz_id, value: @quiz.id %><!--Submit quiz id also through the form-->
 	<%= f.hidden_field :user_id, value: current_user.id %><!--Submit user id also through the form-->
 	<div class="form-group text-center mt-4">
-		<%= f.submit "Finish Quiz", class: "btn btn-primary" %>
+		<%= f.submit "Finish Quiz", class: "btn btn-success" %>
 	</div>
 
 <% end %>
