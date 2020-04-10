@@ -1,27 +1,48 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+This project was developed using Rails 5.1.7 and ruby 2.3.3p222 (2016-11-21 revision 56859) [i386-mingw32].
 
-Requires nodeJS for javascript execution on Windows.
-MySQL as the database running on localhost
+- Requires nodeJS for javascript execution on Windows.
+- MySQL as the database running on localhost
+- Name of the database should be quiz_app_developement for developement.
 
-Things you may want to cover:
+- Create database using db:schema:load or rails db:migrate(slower)
 
-* Ruby version ruby 2.3.3p222 (2016-11-21 revision 56859) [i386-mingw32]
+# Database Schema
 
-* System dependencies 
+## Categories
+##### name, string
 
-* Configuration
+## Quizzes
+##### name, string
+##### timestamps
 
-* Database creation
+## Questions
+##### question, string
+##### score, integer
+##### quiz_id => quiz.id
 
-* Database initialization
+## Options
+##### opt name, string
+##### is_answer, boolean
+##### question_id => question.id
 
-* How to run the test suite
+## Quiz Categories
+##### quiz_id => quiz.id
+##### category_id => category.id
 
-* Services (job queues, cache servers, search engines, etc.)
+## User
+##### username, string
+##### email, email
+##### password, password
 
-* Deployment instructions
+## Submission
+##### score, integer
+##### timestamps
+##### quiz_id => quiz.id
+##### user_id => user.id
 
-* ...
+## Quest Submission
+##### option, string
+##### question_id, integer
+##### submission_id => submission.id
