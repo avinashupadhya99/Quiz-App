@@ -1,5 +1,5 @@
 
-<% @ques_id = question_id %>
+<% @ques_id = question_id %><!--ID of the question of this option-->
 <div class="row">
 	<div class="ml-3 col-md-10 col-sm-10 col-10">
 		<%= form_for @option do |f| %>
@@ -16,7 +16,7 @@
 				<label class="form-check-label">Set Answer</label>
 			</div>
 
-			<%= f.hidden_field :question_id, value: @ques_id %>
+			<%= f.hidden_field :question_id, value: @ques_id %><!--Pass the question id to the controller-->
 
 			<%= f.submit class: "btn btn-primary" %>
 

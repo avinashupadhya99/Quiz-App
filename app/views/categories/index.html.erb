@@ -9,11 +9,11 @@
 		<div class="col-md-4 offset-md-4 alert alert-secondary text-center clickable" onclick="window.location='<%= category_path(category) %>'">
 				<span class="h3"><%= category.name %></span>
         <br>
-        <% quizzes = Quiz.where(id: Question.select("quiz_id").group(:quiz_id).having("count(id)>1")) %>
-          <% category_quiz = category.quizzes %>
+        <% quizzes = Quiz.where(id: Question.select("quiz_id").group(:quiz_id).having("count(id)>1")) %> <!--All valid quizzes-->
+          <% category_quiz = category.quizzes %> <!--All quizzes of the category-->
           <% cnt=0 %>
           <% category_quiz.each do |quiz| %>
-            <% if quizzes.include?(quiz) %>
+            <% if quizzes.include?(quiz) %> <!--Count all valid quizzes of the category-->
               <% cnt+=1 %>
             <% end %>
           <% end %>

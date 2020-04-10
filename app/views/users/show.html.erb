@@ -8,6 +8,7 @@
 		<div class="col-md-6 offset-md-3">
 			<div class="d-inline-flex alert alert-primary">Score: <%= user_score %></div>
 			<h4 class="font-weight-normal mt-2"><%= @user.email %></h4>
+			<!--Show edit, delete buttons only for current user-->
 			<% if @user==current_user %>
 			<hr>
 			<%= link_to 'Edit Account', edit_user_path(current_user), class:"btn btn-info btn-sm" %>
@@ -17,7 +18,7 @@
 		</div>
 	</div>
 </div>
-
+<!--List all submissions by user-->
 <% if @quizzes.present? %>
 	<h3 class="ml-5">Submissions:</h3>
 	<%= render 'quizzes/quiz', obj: @quizzes, type:"Submission" %>

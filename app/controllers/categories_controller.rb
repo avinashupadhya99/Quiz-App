@@ -38,12 +38,12 @@ class CategoriesController < ApplicationController
 
 	def show
 		@category = Category.find(params[:id])
-		quizzes = Quiz.where(id: Question.select("quiz_id").group(:quiz_id).having("count(id)>1"))
-		category_quiz = @category.quizzes
+		quizzes = Quiz.where(id: Question.select("quiz_id").group(:quiz_id).having("count(id)>1")) #All quizzes with more than 1 question
+		category_quiz = @category.quizzes #All quizzes of the category
 		@category_quizzes = []
 		category_quiz.each do |quiz|
 			if quizzes.include?(quiz)
-				@category_quizzes.push(quiz)
+				@category_quizzes.push(quiz) #Add only valid quizzes of the category are added
 			end
 		end
 		@submissions = Submission.all

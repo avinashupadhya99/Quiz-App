@@ -9,26 +9,25 @@ class OptionsController < ApplicationController
 
   def create
     @option = Option.new(option_params)
-    @question = Question.find(params[:option][:question_id].to_i)
-    @option_all = Option.where(question_id: @question.id)
+    @question = Question.find(params[:option][:question_id].to_i) #Question of that option
+    @option_all = Option.where(question_id: @question.id) #Options of the question
     can_save=true
-    if @option_all.present?
-      @option_all.each do |each_option|
-        if each_option.opt_name==@option.opt_name
-          can_save=false
-        end
-        if each_option.is_answer==true
-          @answer=each_option
-        end
+    @option_all.each do |each_option|
+      if each_option.opt_name==@option.opt_name #Check if another option with the same name exists for the question
+        can_save=false 
+      end
+      if each_option.is_answer==true #Check if there is an answer
+        @answer=each_option
       end
     end
+
 
     if can_save==false
       flash[:danger] = "Option #{@each_option.opt_name} already exists"
       redirect_to controller: 'quizzes', action: 'show', id: @question.quiz_id
     else
-      if @option.save
-        if @option.is_answer==true && @answer.present?
+      if @option.save 
+        if @option.is_answer==true && @answer.present? #Make the old answer as false
           @answer.is_answer=false
           @answer.save
         end
@@ -74,7 +73,7 @@ class OptionsController < ApplicationController
         flash[:success] = "Option was successfully updated"
         redirect_to controller: 'quizzes', action: 'show', id: @question.quiz_id
       else
-        redirect_to controller: 'quizzes', action: 'editOption', each_option: @each_option, option_messages: @each_option.errors.full_messages
+        redirect_to controller: 'quizzes', action: 'editOption', each_option: @each_option, option_messages: @each_option.errors.full_messages #Also send the error messages
       end
     end
   end

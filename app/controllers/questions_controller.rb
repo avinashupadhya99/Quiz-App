@@ -22,7 +22,7 @@ class QuestionsController < ApplicationController
   end
 
   def update
-    @each_question = Question.find(params[:id])
+    @each_question = Question.find(params[:id]) 
     if @each_question.update(question_params)
       flash[:success] = "Question was successfully updated"
       redirect_to controller: 'quizzes', action: 'show', id: @each_question.quiz_id

@@ -41,13 +41,13 @@
             <% tscore+=each_question.score %>
           <% end %>
         <% end %>
-        <% if quest_count>1 || (logged_in? && current_user.admin?) || type=="Submission" %>
+        <% if quest_count>1 || (logged_in? && current_user.admin?) || type=="Submission" %><!--Display only valid questions except for admin and submissions-->
           <tr>
-            <% if logged_in? && current_user.admin? %>
+            <% if logged_in? && current_user.admin? %><!--For admins-->
               <td onclick="window.location='<%= quiz_path(quiz) %>'" class="clickable"><%= quiz.name %></td>
               <td onclick="window.location='<%= quiz_path(quiz) %>'" class="clickable"><%= @total_score %></td>
               <% if type=="Submission" %>
-                <% @submissions.each do |sub| %>
+                <% @submissions.each do |sub| %><!--Display score of each submission-->
                   <% if sub.quiz_id==quiz.id %>
                     <td onclick="window.location='<%= quiz_path(quiz) %>'" class="clickable">
                       <%= sub.score %>
@@ -57,7 +57,7 @@
               <% end %>
               <td onclick="window.location='<%= quiz_path(quiz) %>'" class="clickable"><%= @question_all.length() %></td>
               <% if type=="Submission" %>
-                <% @submissions.each do |sub| %>
+                <% @submissions.each do |sub| %><!--Display time ago of each score-->
                   <% if sub.quiz_id==quiz.id %>
                     <td onclick="window.location='<%= quiz_path(quiz) %>'" class="clickable">
                       <%= time_ago_in_words(sub.created_at) %> ago
@@ -73,11 +73,11 @@
                     </span>
                   <% end %>
               </td>
-            <% elsif logged_in?  %>
+            <% elsif logged_in?  %><!--For logged in users-->
               <td><%= quiz.name %></td>
               <td><%= tscore %></td>
               <% if type=="Submission" %>
-                <% @submissions.each do |sub| %>
+                <% @submissions.each do |sub| %><!--Display score for each submission-->
                   <% if sub.quiz_id==quiz.id %>
                     <td>
                       <%= sub.score %>
@@ -87,7 +87,7 @@
               <% end %>
               <td><%= quest_count %></td>
               <% if type=="Submission" %>
-                <% @submissions.each do |sub| %>
+                <% @submissions.each do |sub| %><!--Display time ago for each submission-->
                   <% if sub.quiz_id==quiz.id %>
                     <td>
                       <%= time_ago_in_words(sub.created_at) %> ago
@@ -100,7 +100,7 @@
                   <%= link_to 'Take Quiz', quiz_path(quiz), class: "btn btn-success btn-sm" %>
                 <% end %>
               </td>
-            <% elsif !logged_in?  %>
+            <% elsif !logged_in?  %><!--For not logged in users-->
               <td><%= quiz.name %></td>
               <td><%= tscore %></td>
               <td><%= quest_count %></td>

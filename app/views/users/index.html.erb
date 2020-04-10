@@ -12,9 +12,9 @@
   <tbody>
 
     <% @users.each do |user| %>
+      <!--Calculate the total score of each user-->
       <% if !user.admin? %>
         <% user_score = Submission.where(user_id: user.id).sum(:score) %>
-
         <tr>
             <td><%= user.username %></td>
             <td><%= user.email %></td>

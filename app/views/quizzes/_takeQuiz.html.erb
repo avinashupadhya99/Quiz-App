@@ -38,15 +38,15 @@
 </div>
 
 
-<%= form_for @submission, :url => submissions_path, :method => :post do |f| %>
+<%= form_for @submission, :url => submissions_path, :method => :post do |f| %><!--Outer form of the nested forms for submission-->
 
 	<h3 class="text-center mt-4">Questions:</h3>
 
 	<div class="mt-3">
-		<% i=1 %>
+		<% i=1 %><!--Used to specify the question number-->
 		<div class="accordion" id="accordionExample">
 			<div class="text-center">
-				<% @questions.each do |each_question| %>
+				<% @questions.each do |each_question| %><!--For checking is question is valid i.e, more than 1 option and has answer-->
 						<% found = false %>
 					  	<% count=0 %>
 				  		<% if @option_all.present? %>
@@ -59,24 +59,24 @@
 								<% end %>
 							<% end %>
 						<% end %>
-						<% if found==true && count>=2 %>
+						<% if found==true && count>=2 %><!--Display button for valid questions only-->
 								<button class="btn btn-primary btn-sm" type="button" data-toggle="collapse" data-target="#collapse<%="#{i}"%>" aria-expanded="true" aria-controls="collapse<%="#{i}"%>"><%= i %></button>
 							<% i+=1 %>
 						<% end %>
 
 				<% end %>
 			</div>
-			<% i=1 %>
+			<% i=1 %><!--Used to specify the question number-->
 			<% @questions.each do |each_question| %>
-				<% if i==1 %>
+				<% if i==1 %><!--Add show class to the first question only i.e, only first question is displayed when page is loaded-->
 					<% show="show" %>
 				<% else %>
 					<% show="" %>
 				<% end %>
-				<% found = false %>
+				<% found = false %><!--For checking is question is valid i.e, more than 1 option and has answer-->
 			  	<% count=0 %>
 		  		<% if @option_all.present? %>
-		  			<% @option_all.each do |each_option| %>
+		  			<% @option_all.each do |each_option| %><!--Ch-->
 						<% if each_option.question_id == each_question.id %>
 							<% count +=1 %>
 							<% if each_option.is_answer == true %>
@@ -85,11 +85,11 @@
 						<% end %>
 					<% end %>
 				<% end %>
-				<% if found==true && count>=2 %>
+				<% if found==true && count>=2 %><!--Display only valid questions-->
 						<div id="collapse<%="#{i}"%>" class="collapse <%="#{show}"%> border mt-3 py-1" aria-labelledby="heading<%="#{i}"%>" data-parent="#accordionExample">
-							<%= f.fields_for :quest_submissions do |q| %>
-								<div class="text-center">
-									<h2 class="font-weight-normal"><%= each_question.questions %></h2>
+							<%= f.fields_for :quest_submissions do |q| %><!--Inner form for quest_submissions-->
+								<div class="text-center mb-3"><!--Question name-->
+									(<%= i %>)<h2 class="font-weight-normal"><%= each_question.questions %></h2>
 								</div>
 								<div class="row">
 									<div class="col-md-8 offset-md-2 col-sm-10 offset-sm-1 col-8 offset-1">
@@ -100,13 +100,15 @@
 									</div>
 									<div class="col-md-6 offset-md-3 col-sm-6 offset-sm-3 col-xs-8 offset-xs-2 col-8 offset-1">
 										<div class="row">
+											<!--@option_all contains all options of the quiz-->
 											<% @option_all.each do |each_option| %>
-												<% if each_option.question_id == each_question.id %>
+												<% if each_option.question_id == each_question.id %><!--Display options of this question-->
 													<div class="col-md-5 my-1 ml-1 text-center border border-light grey-back pt-1">
 														<h3>
-															<span class="btn btn-primary btn-sm option-btn"><%= q.radio_button :option, each_option.opt_name %>
-										<%= q.label :option, each_option.opt_name, :value => each_option.opt_name %></span>
-															
+															<span class="btn btn-primary btn-sm option-btn"><!--Select option as radio button-->
+																<%= q.radio_button :option, each_option.opt_name %>
+																<%= q.label :option, each_option.opt_name, :value => each_option.opt_name %>
+															</span>
 														</h3>
 													</div>
 												<% end %>
@@ -114,8 +116,11 @@
 										</div>
 									</div>
 								</div>
-								<%= q.hidden_field :question_id, value: each_question.id %>
+								<%= q.hidden_field :question_id, value: each_question.id %><!--Submit question id also through the inner form-->
 							<% end %>
+							<div class="text-center">
+								<small>(Please click on the next question number to continue)</small>
+							</div>
 						</div>
 						<% i+=1 %>
 				<% end %>
@@ -123,8 +128,8 @@
 		</div>
 	</div>
 
-	<%= f.hidden_field :quiz_id, value: @quiz.id %>
-	<%= f.hidden_field :user_id, value: current_user.id %>
+	<%= f.hidden_field :quiz_id, value: @quiz.id %><!--Submit quiz id also through the form-->
+	<%= f.hidden_field :user_id, value: current_user.id %><!--Submit user id also through the form-->
 	<div class="form-group text-center mt-4">
 		<%= f.submit "Finish Quiz", class: "btn btn-primary" %>
 	</div>

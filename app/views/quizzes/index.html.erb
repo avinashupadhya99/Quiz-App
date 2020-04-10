@@ -2,7 +2,7 @@
 
 <%= render 'quiz', obj: @quizzes, type: "Quiz" %>
 
-<% if logged_in? && current_user.admin? %>
+<% if logged_in? && current_user.admin? %><!--Show new quiz button only for admins-->
 	<%= link_to 'New Quiz', new_quiz_path, class: 'btn btn-primary btn-sm' %>
 <% end %>
 <div class="d-flex mt-3">

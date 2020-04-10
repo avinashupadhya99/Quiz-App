@@ -1,5 +1,5 @@
 class SessionsController < ApplicationController
-
+	#Deals with authentication
 	before_action :require_user, only: [:destroy]
 	before_action :no_login, except: [:destroy]
 	def new

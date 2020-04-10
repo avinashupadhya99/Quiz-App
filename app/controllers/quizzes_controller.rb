@@ -7,7 +7,7 @@ class QuizzesController < ApplicationController
     if logged_in? and current_user.admin?
       @quizzes = Quiz.paginate(page: params[:page], per_page: 6)
     else
-      @quizzes = Quiz.where(id: Question.select("quiz_id").group(:quiz_id).having("count(id)>1")).paginate(page: params[:page], per_page: 6)
+      @quizzes = Quiz.where(id: Question.select("quiz_id").group(:quiz_id).having("count(id)>1")).paginate(page: params[:page], per_page: 6) #Only send quizzes with more than 1 question
     end
      @submissions = Submission.all   
   end
@@ -43,37 +43,35 @@ class QuizzesController < ApplicationController
 
   def show
     @quiz = Quiz.find(params[:id])
-    @questions = Question.where(quiz_id: params[:id].to_i)
-    @question_all = @questions.paginate(page: params[:page], per_page: 5)
-    @total_score = Question.where(quiz_id: params[:id].to_i).sum(:score)
+    @questions = Question.where(quiz_id: params[:id].to_i) #Questions of the quiz
+    @question_all = @questions.paginate(page: params[:page], per_page: 5) #questions paginated
+    @total_score = @questions.sum(:score) #Total score of all the questions in the quiz
     @option = Option.new
-    @option_all = Option.where(question_id: Question.where(quiz_id: params[:id].to_i))
-    quest_count=0 
+    @option_all = Option.where(question_id: @questions) #All options of the quiz
+    quest_count=0 #Count of all the valid questions in the quiz
     @questions.each do |each_question| 
-      found = false 
-      count=0 
-      if @option_all.present? 
+      found = false #Presence of answer
+      count=0 #Number of options
         @option_all.each do |each_option| 
-          if each_option.question_id == each_question.id 
-            count +=1 
-            if each_option.is_answer == true 
-              found = true 
-            end 
+        if each_option.question_id == each_question.id 
+          count +=1 
+          if each_option.is_answer == true 
+            found = true 
           end 
         end 
       end 
-       if found==true && count>=2 
+       if found==true && count>=2 #Increment valid question count if number of options is more than 1 and has an answer
          quest_count+=1 
        end 
     end 
     if !current_user.admin? && (@questions.length()<2 || quest_count < 2)
       redirect_to quizzes_path
     end
-    @submission = Submission.new
-      @submission.quest_submissions.build
+    @submission = Submission.new 
+    @submission.quest_submissions.build #Nested form for quest_submissions
 
     @question = Question.new
-    if params.has_key?(:question_messages)
+    if params.has_key?(:question_messages) #Check if error messages are passed and display them
       @question_messages = params[:question_messages] 
     else
       @question_messages = ""
@@ -82,9 +80,7 @@ class QuizzesController < ApplicationController
       @option_messages = params[:option_messages] 
     else
       @option_messages = ""
-    end
-    
-    
+    end  
   end
 
   def destroy
@@ -96,7 +92,7 @@ class QuizzesController < ApplicationController
 
   def editQuestion
     @each_question = Question.find(params[:each_question].to_i)
-    if params.has_key?(:question_messages)
+    if params.has_key?(:question_messages) #Check if error messages are passed and display them
       @question_messages = params[:question_messages] 
     else
       @question_messages = ""
@@ -104,9 +100,9 @@ class QuizzesController < ApplicationController
   end
 
   def editOption
-    @each_option = Option.find(params[:each_option].to_i)
-    @each_question = Question.find(@each_option.question_id)
-    if params.has_key?(:option_messages)
+    @each_option = Option.find(params[:each_option].to_i) 
+    @each_question = Question.find(@each_option.question_id) #Question of that option
+    if params.has_key?(:option_messages) #Check if error messages are passed and display them
       @option_messages = params[:option_messages] 
     else
       @option_messages = ""

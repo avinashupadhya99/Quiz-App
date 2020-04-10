@@ -10,32 +10,32 @@
 		<div class="list-group mt-1">
 			<% @question_all.each do |each_question| %>
 				<p>
-					<% found = false %>
-				  	<% count=0 %>
+					<% found = false %><!--Flag for answer presence-->
+				  	<% count=0 %><!--Count of options-->
 			  		<% if @option_all.present? %>
 			  			<% @option_all.each do |each_option| %>
 							<% if each_option.question_id == each_question.id %>
 								<% count +=1 %>
-								<% if each_option.is_answer == true %>
+								<% if each_option.is_answer == true %><!--Check if answer is present-->
 									<% found = true %>
-									<% @answer = each_option.opt_name %>
+									<% @answer = each_option.opt_name %><!--Store the answer-->
 							  	<% end %>
 							<% end %>
 						<% end %>
 					<% end %>
 					<a class="btn btn-link list-group-item list-group-item-action" data-toggle="collapse" href="#collapseQuestion-<%="#{each_question.id}"%>" role="button" aria-expanded="false" aria-controls="collapseQuestion">
 				    	<%= each_question.questions %>
-				    	<% if found == false || count<=1  %>
+				    	<% if found == false || count<=1  %><!--If question does not have answer or has less than 2 options-->
 					  	<span class="float-right alert-icon font-weight-bold pr-4">
-					  		<%= fa_icon "exclamation", class: "fa-2x" %>
+					  		<%= fa_icon "exclamation", class: "fa-2x" %><!--display error icon-->
 					  	</span>
 				  	<% end %>
 				  	</a>
 				</p>
 				<div class="collapse mb-2" id="collapseQuestion-<%="#{each_question.id}"%>">
 				  <div class="card card-body">
-					<% if found == false || count<=1  %>
-						<% error_messages=Array.new %>
+					<% if found == false || count<=1  %><!--If question does not have answer or has less than 2 options-->
+						<% error_messages=Array.new %><!--Create custom error messages-->
 						<% if found == false %>
 							<% error_messages.push("This question does not have an answer set!") %>
 						<% end %>
@@ -44,7 +44,7 @@
 						<% end %>
 						<div class="alert alert-danger" role="alert">
 							<ul>
-								<% error_messages.each do |error_message| %>
+								<% error_messages.each do |error_message| %><!--Display the error messages-->
 							  		<li><%= error_message %></li>
 							  	<% end %>
 						  	</ul>
@@ -64,6 +64,7 @@
 							</h4>
 				  		</div>
 				  	</div>
+				  	<!--Render all options-->
 				  	<%= render 'option_list', :each_question => each_question, :count => count%>
 
 				  	<div class="row">
@@ -71,6 +72,7 @@
 							<hr>
 						 	<div class="row">
 						 		<div class="col-md-6 col-sm-6 col-6">
+						 			<!--Button for adding new option collapse-->
 								  <a class="btn btn-info" data-toggle="collapse" href="#collapse-<%="#{each_question.id}"%>-Option" role="button" aria-expanded="false" aria-controls="collapse-<%="#{each_question.id}"%>-Option">
 								    Add an option
 								  </a>
