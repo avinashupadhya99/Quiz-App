@@ -44,30 +44,31 @@ class OptionsController < ApplicationController
   end
 
   def update
-    @each_option = Option.find(params[:id])
-    @question = Question.find(@each_option.question_id)
-    @option_all = Option.where(question_id: @question.id)
+    @each_option = Option.find(params[:id]) #option passed as parameter
+    @question = Question.find(@each_option.question_id) #Question of that option
+    @option_all = Option.where(question_id: @question.id) #All options of that question
     can_save=true
-    @same_option = Option.where(opt_name: @each_option.opt_name)
-    @other_options = @same_option.where.not(id: @each_option.id)
-    if @other_options.present?
-      can_save=false
-    end
-    if @option_all.present?
-      @option_all.each do |each_opt|
-        if each_opt.is_answer==true
-          @answer=each_opt
-        end
+    @same_option = @option_all.where(opt_name: @each_option.opt_name)#All options of the question with the same name
+    @same_option.each do |opt|
+      if opt.id!=@each_option.id
+        can_save=false #Only set false if option other than the option passed has the same name
       end
     end
 
-    if can_save==false
-      flash[:danger] = "Option #{@each_option.opt_name} already exists"
+    @option_all.each do |each_opt| #Check if answer exists for the question
+      if each_opt.is_answer==true
+        @answer=each_opt #Save the option as answer
+      end
+    end
+
+    if can_save==false 
+      same_opt_name=params[:option][:opt_name]
+      flash[:danger] = "Option #{same_opt_name} already exists"
       redirect_to controller: 'quizzes', action: 'show', id: @question.quiz_id
     else
       if @each_option.update(option_params)
-        if @each_option.is_answer==true && @answer.present?
-          @answer.is_answer=false
+        if @each_option.is_answer==true && @answer.present? #Make the old answer false if the option passed is an answer
+          @answer.is_answer=false 
           @answer.save
         end
         flash[:success] = "Option was successfully updated"
