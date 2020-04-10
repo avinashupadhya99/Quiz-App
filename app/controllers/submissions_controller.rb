@@ -20,6 +20,7 @@ class SubmissionsController < ApplicationController
 	        question_subs = QuestSubmission.where(submission_id: @submission.id)
 	        question_subs.each do |q_sub|
 	        	question=Question.find(q_sub.question_id)
+	        	answer=nil
 	        	option_all.each do |each_option|
 	        		if each_option.question_id == question.id
 	        			if each_option.is_answer == true
@@ -32,6 +33,7 @@ class SubmissionsController < ApplicationController
 	        	end
 	        end
 	        @submission.score=total_score
+	        @submission.save
 	        redirect_to controller: 'quizzes', action: 'index'
 	    else
 	    	flash[:danger] = "Soemthing went wrong"
@@ -44,7 +46,7 @@ class SubmissionsController < ApplicationController
 
     def submission_params
 
-		params.require(:submission).permit(:user_id, :quiz_id)
+		params.require(:submission).permit(:user_id, :quiz_id, quest_submissions_attributes: [:question_id, :option])
 
 	end
 end

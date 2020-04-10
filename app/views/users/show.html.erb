@@ -1,25 +1,23 @@
 <h1 class="text-center mt-3 mb-3">Welcome to <%= @user.username %>'s page</h1>
-<div class="text-center mb-5">
+<div class="text-center mb-3">
 	Joined <%= time_ago_in_words(@user.created_at) %> ago
 </div>
-
-<% if @user==current_user %>
-	<div class="text-center">
-		<div class="row">
-			<div class="col-md-6 offset-md-3">
-				<h4 class="font-weight-normal"><%= @user.email %></h4>
-				<hr>
-				<%= link_to 'Edit Account', edit_user_path(current_user), class:"btn btn-info btn-sm" %>
-				<%= link_to 'Edit Password', editPassword_path, class:"btn btn-primary btn-sm" %>
-				<%= link_to 'Delete Account', user_path(current_user), method: :delete, data: { confirm: "Are you sure you want to delete the user and all their submissions?" }, class:"btn btn-danger btn-sm" %>
-			</div>
+<% user_score = Submission.where(user_id: @user.id).sum(:score) %>
+<div class="text-center">
+	<div class="row">
+		<div class="col-md-6 offset-md-3">
+			<div class="d-inline-flex alert alert-primary">Score: <%= user_score %></div>
+			<h4 class="font-weight-normal mt-2"><%= @user.email %></h4>
+			<% if @user==current_user %>
+			<hr>
+			<%= link_to 'Edit Account', edit_user_path(current_user), class:"btn btn-info btn-sm" %>
+			<%= link_to 'Edit Password', editPassword_path, class:"btn btn-primary btn-sm" %>
+			<%= link_to 'Delete Account', user_path(current_user), method: :delete, data: { confirm: "Are you sure you want to delete the user and all their submissions?" }, class:"btn btn-danger btn-sm" %>
+			<% end %>
 		</div>
 	</div>
-<% end %>
-<%# old_submission = Submission.where(user_id: 2, quiz_id: 4) %>
-		<%# old_submission.each do |old_sub| %>
-			<%#= old_sub.id %>
-		<%# end %>
+</div>
+
 <% if @quizzes.present? %>
 	<h3 class="ml-5">Submissions:</h3>
 	<%= render 'quizzes/quiz', obj: @quizzes, type:"Submission" %>

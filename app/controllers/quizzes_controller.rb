@@ -69,6 +69,9 @@ class QuizzesController < ApplicationController
     if !current_user.admin? && (@questions.length()<2 || quest_count < 2)
       redirect_to quizzes_path
     end
+    @submission = Submission.new
+      @submission.quest_submissions.build
+
     @question = Question.new
     if params.has_key?(:question_messages)
       @question_messages = params[:question_messages] 
