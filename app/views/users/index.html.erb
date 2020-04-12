@@ -10,13 +10,26 @@
     </tr>
   </thead>
   <tbody>
+    <% max=0 %>
+    <% @users.each do |user| %><!--Calculate the maximum score-->
+      <% user_score = Submission.where(user_id: user.id).sum(:score) %>
+      <% if user_score > max %>
+        <% max=user_score %>
+      <% end %>
+    <% end %>
 
     <% @users.each do |user| %>
       <!--Calculate the total score of each user-->
-      <% if !user.admin? %>
+      <% if !user.admin? %><!--Only display non admin users-->
         <% user_score = Submission.where(user_id: user.id).sum(:score) %>
         <tr>
-            <td><%= user.username %></td>
+            <td><%= user.username %>
+              <% if user_score==max && max!=0 %>
+                <span class="float-right star-icon font-weight-bold pr-4">
+                  <%= fa_icon "star", class: "fa-2x" %>
+                </span>
+              <% end %>
+            </td>
             <td><%= user.email %></td>
             <td><%= user_score %></td>
             <td>
@@ -25,6 +38,7 @@
                 <%= link_to 'Edit User', edit_user_path(user), class: "btn btn-info btn-sm ml-4" %>
                 <%= link_to 'Delete User', user_path(user), method: :delete, data: {confirm: "Are you sure?"}, class: "btn btn-danger btn-sm ml-4" %>
               <% end %>
+              
             </td>
         </tr>
       <% end %>
