@@ -1,4 +1,4 @@
-# Quiz APP
+# QUIZ APP
 
 A simple ruby on rails web application which provides both admin and end user functionalities for a quiz application. Admins can manage quizzes and end user can take quizzes.
 
