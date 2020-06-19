@@ -1,50 +1,54 @@
-# README
+# STORE APP
 
-A ruby on rails web application which provides both admin and end user functionalities for a quiz application. Admins can manage quizzes and end user can take quizzes.
+A simple ruby on rails web application which provides both admin and end user functionalities for a quiz application. Admins can manage quizzes and end user can take quizzes.
 
-This project was developed using Rails 5.1.7 and ruby 2.3.3p222 (2016-11-21 revision 56859) [i386-mingw32].
 
-- Requires nodeJS for javascript execution on Windows.
-- MySQL as the database running on localhost
-- Name of the database should be quiz_app_developement for developement.
+## Developer Documentation
 
-- Create database using db:schema:load or rails db:migrate(slower)
+### Requirements
 
-# Database Schema
+1. Docker
+2. Docker Compose
+3. An editor of your choice (VS Code, Sublime, Atom, etc)
 
-## Categories
-##### name, string
+### Clone Repository
 
-## Quizzes
-##### name, string
-##### timestamps
+```
+git clone https://github.com/avinashupadhya99/Quiz-App.git
+```
 
-## Questions
-##### question, string
-##### score, integer
-##### quiz_id => quiz.id
+> *Note:* The above command clones over HTTP anonymously. If you have Github account and configured SSH keys then you must clone over SSH to push changes to your forked repository.
 
-## Options
-##### opt name, string
-##### is_answer, boolean
-##### question_id => question.id
+### Setting up Development Environment
 
-## Quiz Categories
-##### quiz_id => quiz.id
-##### category_id => category.id
+Create a file named `.env` in source root with the following contents
 
-## User
-##### username, string
-##### email, email
-##### password, password
+```
+RAILS_ENV=development
 
-## Submission
-##### score, integer
-##### timestamps
-##### quiz_id => quiz.id
-##### user_id => user.id
+MYSQL_SERVER=mysqldb
+MYSQL_DATABASE=quizdb
+MYSQL_USERNAME=root
+MYSQL_PASSWORD=quizdbpassword
 
-## Quest Submission
-##### option, string
-##### question_id, integer
-##### submission_id => submission.id
+```
+
+Create a file named `.env.mysql` in source root with the following content
+
+```
+MYSQL_ROOT_PASSWORD=quizdbpassword
+```
+
+Start the application server and MySQL using the command-
+
+```
+docker-compose up
+```
+
+This will build the docker image based on `Dockerfile` and bring up
+
+1. MySQL Server
+2. Rails Application Server (in Development Mode)
+
+Once both the containers are running, point your browser to `http://localhost:8800`.
+
