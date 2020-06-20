@@ -21,23 +21,6 @@ git clone https://github.com/avinashupadhya99/Quiz-App.git
 
 ### Setting up Development Environment
 
-Create a file named `.env` in source root with the following contents
-
-```
-RAILS_ENV=development
-
-MYSQL_SERVER=mysqldb
-MYSQL_DATABASE=quizdb
-MYSQL_USERNAME=root
-MYSQL_PASSWORD=quizdbpassword
-
-```
-
-Create a file named `.env.mysql` in source root with the following content
-
-```
-MYSQL_ROOT_PASSWORD=quizdbpassword
-```
 
 Start the application server and MySQL using the command-
 
