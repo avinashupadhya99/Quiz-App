@@ -51,3 +51,6 @@ The following command will create dummy quizzes and categories-
 ```
 docker-compose run app rake db:seed:seed_quiz
 ```
+
+---
+> ### Refer to [Database Schema](https://github.com/avinashupadhya99/Quiz-App/wiki/DB-Schema) for the database schema diagrams of the application.
