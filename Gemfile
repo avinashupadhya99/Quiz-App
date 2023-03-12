@@ -7,13 +7,13 @@ end
 
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 5.2.6', '>= 5.2.6.2'
+gem 'rails', '~> 6.1.7', '>= 6.1.7.1'
 # Use mysql as the database for Active Record
 gem 'mysql2', '>= 0.3.18', '< 0.6.0'
 # Use Puma as the app server
-gem 'puma', '~> 4.3', '>= 4.3.11'
+gem 'puma', '~> 4.3', '>= 4.3.12'
 # Use SCSS for stylesheets
-gem 'sass-rails', '~> 5.0', '>= 5.0.7'
+gem 'sass-rails', '~> 6.0', '>= 6.0.0'
 
 gem 'bootstrap', '~> 4.3', '>= 4.3.1'
 
@@ -21,7 +21,7 @@ gem 'will_paginate', '~> 3.3.0'
 
 gem 'will_paginate-bootstrap4'
 
-gem 'font-awesome-rails', '>= 4.7.0.5'
+gem 'font-awesome-rails', '>= 4.7.0.6'
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
 # See https://github.com/rails/execjs#readme for more supported runtimes
@@ -36,7 +36,7 @@ gem 'coffee-script-source', '1.8.0'
 
 gem 'jquery-rails', '>= 4.4.0'
 
-gem 'active_model_serializers', '~> 0.10.10'
+gem 'active_model_serializers', '~> 0.10.12'
 
 gem 'bcrypt', '~> 3.1.7'
 
